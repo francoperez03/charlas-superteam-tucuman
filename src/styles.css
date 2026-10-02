@@ -32,12 +32,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* ---------- piezas de @crisol/motion-kit (motion-kit.css) ---------- */
-/* M-HOV-01: roll por letra. El texto está duplicado; al pasar por encima cada letra sube una línea, con 20 ms de demora por letra. */
-.roll { display: inline-block; overflow: hidden; line-height: 1.25; vertical-align: top; white-space: nowrap; }
-.roll .ch { display: inline-block; position: relative; transition: transform 1.2s var(--ease-roll); transition-delay: calc(var(--i) * 20ms); }
-.roll .ch > span { display: block; }
-.roll .ch > span + span { position: absolute; top: 100%; left: 0; color: var(--yellow); }
-.item:hover .roll .ch, .item:focus-visible .roll .ch { transform: translateY(-100%); }
 /* M-REV-02: cada palabra en su máscara. El padding deja lugar a tildes y descendentes. */
 .words-clip { display: inline-block; overflow: clip; vertical-align: top; padding: 0.16em 0 0.145em; margin-top: -0.16em; }
 .words-clip .word { display: inline-block; will-change: transform; }
@@ -52,8 +46,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .lista { list-style: none; padding: 0; align-self: center; position: relative; z-index: 1; }
 .lista li + li { border-top: 1.5px dashed var(--rule); }
 .item { display: grid; grid-template-columns: 3.4ch 1fr; column-gap: clamp(12px, 2vw, 32px); align-items: baseline; padding: clamp(10px, 2vh, 32px) 0; color: var(--ink); text-decoration: none; }
+/* hover sutil: el título pasa a amarillo y la flecha se corre */
+.item-titulo > span { display: inline-block; line-height: 1.25; white-space: nowrap; transition: color 0.35s ease-out; }
+.item:hover .item-titulo > span, .item:focus-visible .item-titulo > span { color: var(--yellow); }
 .item-n { font: 700 clamp(0.8rem, 1.2vw, 1.1rem)/1 var(--mono); color: var(--peri); letter-spacing: 0.08em; }
-.item-titulo { display: block; overflow: clip; font: 800 clamp(1.25rem, 5vw, 6rem)/1 var(--mono); text-transform: uppercase; letter-spacing: -0.01em; }
+.item-titulo { display: block; overflow: clip; font: 800 clamp(1.35rem, 5.8vw, 7rem)/1 var(--mono); text-transform: uppercase; letter-spacing: -0.01em; }
 .item-meta { grid-column: 2; display: flex; align-items: baseline; gap: 8px clamp(20px, 3vw, 48px); flex-wrap: wrap; margin-top: clamp(4px, 1vh, 12px); }
 .item-bajada { font-size: clamp(1rem, 1.5vw, 1.375rem); color: var(--body); }
 .item-datos { font: 500 clamp(0.75rem, 1vw, 0.95rem)/1.2 var(--mono); color: var(--muted); white-space: nowrap; transition: color 0.3s ease-out; }
@@ -126,5 +123,5 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .pres-vacio { display: grid; place-items: center; padding: 24px; text-align: center; font-size: 1.25rem; color: var(--body); }
 
 @media (prefers-reduced-motion: reduce) {
-  .roll .ch, .flecha, .avance i, .item-datos, .hud-menu { transition: none; }
+  .item-titulo > span, .flecha, .avance i, .item-datos, .hud-menu { transition: none; }
 }

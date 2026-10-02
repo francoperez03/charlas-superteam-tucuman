@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
-import { gsap, REVEAL, reducedMotion, Roll } from './motion/motion'
+import { gsap, REVEAL, reducedMotion } from './motion/motion'
 import { CHARLAS } from './charlas'
 import { escribirURL } from './deck/state'
 
@@ -18,7 +18,7 @@ export function Menu({ onElegir }: { onElegir: (slug: string) => void }) {
   useLayoutEffect(() => {
     if (reducedMotion()) return
     const ctx = gsap.context(() => {
-      gsap.from('.item-titulo > .roll', { yPercent: 115, duration: REVEAL.duration + 0.2, ease: REVEAL.ease, stagger: 0.09 })
+      gsap.from('.item-titulo > span', { yPercent: 115, duration: REVEAL.duration + 0.2, ease: REVEAL.ease, stagger: 0.09 })
       gsap.from('[data-in]', { y: 24, autoAlpha: 0, duration: REVEAL.duration, ease: REVEAL.ease, stagger: 0.05, delay: 0.25 })
     }, scope)
     return () => ctx.revert()
@@ -40,7 +40,7 @@ export function Menu({ onElegir }: { onElegir: (slug: string) => void }) {
                 onClick={(e) => { e.preventDefault(); onElegir(c.slug) }}
               >
                 <span className="item-n" data-in>{String(i + 1).padStart(2, '0')}</span>
-                <span className="item-titulo"><Roll text={c.titulo} /></span>
+                <span className="item-titulo"><span>{c.titulo}</span></span>
                 <span className="item-meta" data-in>
                   <span className="item-bajada">{c.bajada}</span>
                   <span className="item-datos">{c.minutos} min · {c.slides.length} slides <span className="flecha" aria-hidden>→</span></span>

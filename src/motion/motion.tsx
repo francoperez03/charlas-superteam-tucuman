@@ -10,20 +10,6 @@ export const REVEAL = { duration: 0.8, ease: 'expo.out', stagger: 0.04 } // M-RE
 
 export const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches
 
-// M-HOV-01: texto duplicado por letra para el roll en hover (CSS: .roll)
-export function Roll({ text }: { text: string }) {
-  return (
-    <span className="roll" aria-label={text}>
-      {[...text].map((c, i) => (
-        <span key={i} className={c === ' ' ? 'ch sp' : 'ch'} style={{ ['--i' as string]: i }} aria-hidden>
-          <span>{c === ' ' ? ' ' : c}</span>
-          <span>{c === ' ' ? ' ' : c}</span>
-        </span>
-      ))}
-    </span>
-  )
-}
-
 // M-REV-02: cada palabra en su máscara (.words-clip) para entrar desde abajo.
 // Deja una copia sr-only del texto para lectores de pantalla.
 export function WordsIn({ text }: { text: string }) {
