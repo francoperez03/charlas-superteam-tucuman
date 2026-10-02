@@ -132,22 +132,19 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .bv-portada { justify-content: center; gap: 48px; }
 .bv-portada h1 { font-size: 150px; max-width: 1150px; }
 .bv-x { font: 800 150px/1.02 var(--mono); color: var(--yellow); text-transform: uppercase; }
-.bv-logos { display: flex; align-items: center; gap: 64px; }
-.bv-logos img { height: 64px; }
+.bv-logos { display: flex; align-items: center; gap: 48px; }
+.bv-logos img { height: 40px; }
 /* PCN: el wordmark en texto y el isotipo en alta, como en la placa oficial */
-.bv-pcn { display: flex; align-items: center; gap: 14px; font: 800 64px/1 var(--sans); color: #fff; letter-spacing: -0.02em; }
-.bv-pcn img { height: 52px; }
-.bv-cierre { justify-content: center; }
-.bv-cierre h1 { font-size: 180px; color: var(--yellow); }
-.bv-cierre .bv-carpincho { width: 400px; }
+.bv-pcn { display: flex; align-items: center; gap: 10px; font: 800 40px/1 var(--sans); color: #fff; letter-spacing: -0.02em; }
+.bv-logos .bv-pcn img { height: 32px; }
+.bv-cierre h1 { font-size: 150px; color: var(--yellow); }
+.bv-qrs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; }
+.bv-qrs img { width: 340px; height: 340px; border-radius: 16px; image-rendering: pixelated; display: block; }
+.bv-qrs figcaption { margin-top: 24px; font: 800 36px/1.1 var(--mono); color: var(--ink); text-transform: uppercase; }
 .bv-carpincho { position: absolute; right: 120px; bottom: 130px; width: 520px; }
 
 .bv-equipo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; }
-/* foto y QR encimados; la posición, el tamaño, el brillo y quién tapa a quién los pone Equipo() en bienvenidos.tsx */
-.bv-swap { position: relative; }
-.bv-swap img { position: absolute; left: 0; top: 0; border-radius: 16px; border: 3px solid var(--bg); transform-origin: center; will-change: transform; }
-.bv-foto { object-fit: cover; }
-.bv-qr { image-rendering: pixelated; }
+.bv-equipo .bv-foto { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 16px; display: block; }
 .bv-equipo figcaption { display: grid; gap: 12px; margin-top: 32px; font: 500 30px/1.2 var(--sans); color: var(--body); }
 .bv-equipo b { font: 800 40px/1.1 var(--mono); color: var(--ink); text-transform: uppercase; }
 
@@ -167,20 +164,13 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .bv-mundo[data-arg] .bv-arg { stroke: var(--yellow); stroke-width: 3; fill: var(--yellow); fill-opacity: 1; transition-delay: 0.45s, 0.45s, 0s, 0s; }
 @media (prefers-reduced-motion: reduce) { .bv-mundo-texto > div, .bv-otros, .bv-arg { transition: none; } }
 
-/* barra de las dos semanas: inicio, hoy y cierre arriba; el Demo Day de mañana abajo, cada marca con su palito en la fecha */
-.bv-linea { position: relative; padding-top: 150px; min-height: 480px; }
-.bv-hitos { position: absolute; top: 0; left: 0; right: 0; height: 150px; display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 28px; }
-.bv-hitos > div { display: grid; gap: 14px; }
-.bv-hitos b { font: 800 64px/1 var(--mono); color: var(--ink); text-transform: uppercase; white-space: nowrap; }
-.bv-hitos .bv-fin { justify-items: end; }
-.bv-marca { position: absolute; display: grid; gap: 14px; padding-left: 28px; border-left: 4px solid var(--yellow); margin-left: -2px; }
-.bv-arriba { top: 0; height: 150px; align-content: end; padding-bottom: 28px; }
-.bv-arriba b { font: 800 96px/1 var(--mono); color: var(--yellow); text-transform: uppercase; }
-.bv-abajo { top: 166px; padding-top: 28px; }
-.bv-abajo b { font: 800 72px/1 var(--mono); color: var(--ink); text-transform: uppercase; white-space: nowrap; }
-.bv-abajo em { font: 400 36px/1.3 var(--sans); font-style: normal; color: var(--body); white-space: nowrap; }
-.bv-barra { height: 16px; border-radius: 8px; background: var(--box-line); overflow: hidden; }
-.bv-barra i { display: block; height: 100%; background: var(--yellow); }
+/* fechas clave: tres columnas, hoy en amarillo */
+.bv-fechas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; }
+.bv-fechas > div { display: grid; align-content: start; gap: 18px; padding-top: 36px; border-top: 4px solid var(--box-line); }
+.bv-fechas b { font: 800 80px/1 var(--mono); color: var(--ink); text-transform: uppercase; white-space: nowrap; }
+.bv-fechas p { font: 400 40px/1.3 var(--sans); color: var(--body); text-wrap: pretty; }
+.bv-fechas .bv-fecha-hoy { border-top-color: var(--yellow); }
+.bv-fechas .bv-fecha-hoy b { color: var(--yellow); }
 
 .bv-centro { justify-content: center; gap: 40px; }
 .bv-monto { font: 800 300px/0.9 var(--mono); color: var(--yellow); letter-spacing: -0.03em; white-space: nowrap; }

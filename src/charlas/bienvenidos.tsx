@@ -1,5 +1,5 @@
-import { gsap, reducedMotion, WordsIn } from '../motion/motion'
-import { useContext, useLayoutEffect, useRef } from 'react'
+import { WordsIn } from '../motion/motion'
+import { useContext } from 'react'
 import { Paso, SlideCtx, type Charla } from '../deck/slide'
 import { EQUIPO } from './equipo'
 import { MUNDO } from './mundo'
@@ -28,69 +28,34 @@ const DIA = [min('11:00'), min('17:40')] // rango de la barra
 const pct = (h: string) => ((min(h) - DIA[0]) / (DIA[1] - DIA[0])) * 100
 const HORAS = ['11', '12', '13', '14', '15', '16', '17']
 
-// Días desde el lun 28/9 (día 0) hasta el cierre del mar 13/10 (día 15), en % de la barra.
-const ENDIA = (n: number) => `${(n / 15) * 100}%`
-const HOY_DIA = 5 // sáb 3/10
-const MANANA_DIA = 6 // dom 4/10, Demo Day (superteam.ar/colosseum, 2026-10-02)
+// Cierre de la preselección del domingo. Franco pidió las 13:00; superteam.ar/colosseum y luma.com/9duum73r dicen 16:00 (leídos el 2026-10-02).
+const PRESELECCION = '13:00'
 
-// Foto y QR encimados en diagonal. Con → (paso 1) giran como dos cartas sólidas alrededor de su centro común:
-// a mitad de vuelta se separan, la que va atrás se achica y la que viene adelante crece, y ahí se cruzan.
-const T = 400 // lado de cada carta, en px del lienzo
-const D = 120 // corrimiento diagonal entre las dos
-const R0 = D / Math.SQRT2 // radio de la órbita en reposo
-const ABRE = 50 // cuánto se separan a mitad de vuelta
-const OSCURA = { foto: 0.45, qr: 0.3 } // brillo de la carta de atrás
-
-// Pose de una carta: t va de 0 a 1 en la vuelta; `adelante` dice si termina adelante.
-function pose(desde: number, sentido: number, t: number, adelante: boolean, oscura: number) {
-  const m = Math.sin(Math.PI * t)
-  const a = desde + sentido * Math.PI * t
-  const r = R0 + ABRE * m
-  return {
-    x: D / 2 + r * Math.cos(a), y: D / 2 + r * Math.sin(a),
-    scale: adelante ? 1 + 0.05 * m : 1 - 0.12 * m,
-    zIndex: (adelante ? t >= 0.5 : t < 0.5) ? 2 : 1,
-    filter: `brightness(${adelante ? oscura + (1 - oscura) * t : 1 - (1 - oscura) * t})`,
-  }
-}
-const FRENTE = Math.PI / 4 // abajo a la derecha
-const FONDO = FRENTE + Math.PI // arriba a la izquierda
-
+// El equipo: solo las fotos. Los QR van en la slide final.
 function Equipo() {
-  const { step, animar } = useContext(SlideCtx)
-  const caja = useRef<HTMLDivElement>(null)
-  const antes = useRef<boolean | null>(null)
-  useLayoutEffect(() => {
-    const qrAdelante = step >= 1
-    const fotos = caja.current!.querySelectorAll<HTMLElement>('.bv-foto')
-    const qrs = caja.current!.querySelectorAll<HTMLElement>('.bv-qr')
-    // la foto arranca donde está y gira media vuelta; el QR, igual desde el lado opuesto
-    const vuelta = (t: number, aQr: boolean) => {
-      const sentido = aQr ? 1 : -1
-      gsap.set(fotos, pose(aQr ? FRENTE : FONDO, sentido, t, !aQr, OSCURA.foto))
-      gsap.set(qrs, pose(aQr ? FONDO : FRENTE, sentido, t, aQr, OSCURA.qr))
-    }
-    if (antes.current === null || antes.current === qrAdelante || !animar || reducedMotion()) vuelta(1, qrAdelante)
-    else {
-      const p = { t: 0 }
-      const tw = gsap.to(p, { t: 1, duration: 1.1, ease: 'power2.inOut', onUpdate: () => vuelta(p.t, qrAdelante) })
-      antes.current = qrAdelante
-      return () => { tw.progress(1).kill() }
-    }
-    antes.current = qrAdelante
-  }, [step, animar])
   return (
-    <div className="bv-equipo" ref={caja}>
+    <div className="bv-equipo">
       {EQUIPO.map((p) => (
         <figure key={p.nombre} data-in>
-          <div className="bv-swap" style={{ width: T + D, height: T + D }}>
-            <img className="bv-foto" src={p.foto} alt="" style={{ width: T, height: T }} />
-            <img className="bv-qr" src={p.qr.img} alt={`QR al ${p.qr.red} de ${p.nombre}`} style={{ width: T, height: T }} />
-          </div>
+          <img className="bv-foto" src={p.foto} alt="" />
           <figcaption>
             <b>{p.nombre}</b>
             {p.rol && <span>{p.rol}</span>}
           </figcaption>
+        </figure>
+      ))}
+    </div>
+  )
+}
+
+// Slide final: los QR de los tres para seguirnos.
+function Qrs() {
+  return (
+    <div className="bv-qrs">
+      {EQUIPO.map((p) => (
+        <figure key={p.nombre} data-in>
+          <img src={p.qr.img} alt={`QR al ${p.qr.red} de ${p.nombre}`} />
+          <figcaption>{p.nombre}</figcaption>
         </figure>
       ))}
     </div>
@@ -148,8 +113,7 @@ export const bienvenidos: Charla = {
     },
     {
       titulo: 'Quiénes somos',
-      pasos: 1,
-      notas: 'Nos presentamos rápido. Cualquier duda del día, nos buscan a cualquiera de los tres.\n\n→ Pasan los QR adelante: si quieren seguirnos, escaneen el de cada uno.',
+      notas: 'Nos presentamos rápido. Cualquier duda del día, nos buscan a cualquiera de los tres. Los QR para seguirnos están al final.',
       contenido: () => (
         <div className="bv">
           <h1><WordsIn text="Quiénes somos" /></h1>
@@ -169,23 +133,15 @@ export const bienvenidos: Charla = {
       ),
     },
     {
-      titulo: 'Dos semanas',
-      notas: 'Arrancó el lunes 28 y la entrega cierra el martes 13 a las 03:59 de acá, que es el 12 a la medianoche de California.\n\nOjo con mañana: a las 16 cierra la preselección y a las 19:30 es el Demo Day con los seleccionados. Todo lo que se construya hasta el cierre cuenta.',
+      titulo: 'Fechas clave',
+      notas: `Tres fechas y nada más.\n\nHoy, sábado: construimos y armamos equipos.\n\nMañana domingo a las ${PRESELECCION} cierra la preselección: ahí se decide qué proyectos presentan en el Demo Day, que arranca a las 19:30.\n\nY la entrega en Colosseum cierra el martes 13 a las 03:59 de acá.`,
       contenido: () => (
         <div className="bv">
-          <h1><WordsIn text="Dos semanas" /></h1>
-          <div className="bv-linea" data-in>
-            <div className="bv-hitos">
-              <div><span className="bv-etq">Arrancó</span><b>lun 28 sep</b></div>
-              <div className="bv-fin"><span className="bv-etq">Cierre · 03:59 hora argentina</span><b>mar 13 oct</b></div>
-            </div>
-            <div className="bv-marca bv-arriba" style={{ left: ENDIA(HOY_DIA) }}><b>Hoy</b></div>
-            <div className="bv-barra"><i style={{ width: ENDIA(HOY_DIA) }} /></div>
-            <div className="bv-marca bv-abajo" style={{ left: ENDIA(MANANA_DIA) }}>
-              <span className="bv-etq">Mañana · dom 4 oct</span>
-              <b>Demo Day</b>
-              <em>16:00 cierra la preselección<br />19:30 Demo Day</em>
-            </div>
+          <h1><WordsIn text="Fechas clave" /></h1>
+          <div className="bv-fechas">
+            <div className="bv-fecha-hoy" data-in><span className="bv-etq">Hoy</span><b>sáb 3 oct</b><p>Construimos y armamos equipos</p></div>
+            <div data-in><span className="bv-etq">Mañana · dom 4 oct</span><b>{PRESELECCION}</b><p>Cierra la preselección: se decide quién presenta en el Demo Day</p></div>
+            <div data-in><span className="bv-etq">Cierre · 03:59</span><b>mar 13 oct</b><p>Cierra la entrega en Colosseum</p></div>
           </div>
         </div>
       ),
@@ -291,11 +247,11 @@ export const bienvenidos: Charla = {
     },
     {
       titulo: 'Bienvenidos',
-      notas: '¡Bienvenidos! Arrancamos.\n\n→ vuelve al menú para abrir ¿Qué #$%& es Solana?',
+      notas: '¡Bienvenidos! Si quieren seguirnos, escaneen el QR de cada uno.\n\n→ vuelve al menú para abrir ¿Qué #$%& es Solana?',
       contenido: () => (
         <div className="bv bv-cierre">
           <h1><WordsIn text="Bienvenidos" /></h1>
-          <img className="bv-carpincho" src="/mascota-carpincho.png" alt="" data-in />
+          <Qrs />
         </div>
       ),
     },
