@@ -187,7 +187,17 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .bv-fecha { margin-top: 40px; font: 600 96px/1.15 var(--sans); color: var(--ink); }
 .bv-fecha b { display: inline-block; color: var(--on-yellow); background: var(--yellow); padding: 0 0.25em; border-radius: 12px; font: 800 0.95em/1.2 var(--mono); }
 
-.bv-hoy-lista { list-style: none; padding: 0; columns: 2; column-gap: 120px; }
-.bv-hoy-lista li { break-inside: avoid; display: flex; gap: 40px; padding: 20px 0; border-bottom: 1.5px dashed var(--rule); font: 500 44px/1.2 var(--sans); color: var(--ink); }
-.bv-hoy-lista span { font: 700 44px/1.2 var(--mono); color: var(--peri); min-width: 150px; }
-.bv-hoy-lista .bv-ahora, .bv-hoy-lista .bv-ahora span { color: var(--yellow); }
+/* el día como pista: cada bloque ocupa en la barra lo que dura, así se ve la mañana corta y la tarde de build */
+.bv-dia { --col: 150px 620px 1fr; }
+.bv-dia-horas { position: relative; margin-left: calc(150px + 620px + 2 * 40px); height: 40px; font: 700 26px/1 var(--mono); color: var(--muted); }
+.bv-dia-horas span { position: absolute; top: 0; transform: translateX(-50%); }
+.bv-dia ol { list-style: none; padding: 0; }
+.bv-dia li { display: grid; grid-template-columns: var(--col); gap: 40px; align-items: center; padding: 9px 0; border-bottom: 1.5px dashed var(--rule); }
+.bv-dia-ini { font: 700 40px/1.2 var(--mono); color: var(--peri); }
+.bv-dia-nombre { font: 600 42px/1.2 var(--sans); color: var(--ink); white-space: nowrap; }
+.bv-dia-pista { position: relative; height: 28px; }
+.bv-dia-pista i { position: absolute; top: 0; bottom: 0; border-radius: 6px; background: var(--peri); }
+.bv-dia .bv-ahora .bv-dia-ini, .bv-dia .bv-ahora .bv-dia-nombre { color: var(--yellow); }
+.bv-dia .bv-ahora .bv-dia-pista i { background: var(--yellow); }
+.bv-dia .bv-pausa .bv-dia-nombre { color: var(--muted); font-weight: 400; }
+.bv-dia .bv-pausa .bv-dia-pista i { background: transparent; border: 2px dashed var(--muted); }

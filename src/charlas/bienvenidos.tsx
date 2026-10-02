@@ -15,11 +15,16 @@ const PASOS_PARTICIPAR = [
   ['Entrega en Superteam Earn', 'Solo residentes en Argentina', 'superteam.fun/earn'],
 ]
 
-const HOY = [
-  ['11:00', 'Bienvenida'], ['11:10', 'Solana desde cero'], ['11:30', 'Icebreaker'], ['11:40', 'Cómo construir algo'],
-  ['12:20', 'Puesta a punto'], ['12:40', 'Ideas y equipos'], ['13:00', 'Charla de Devin'], ['13:30', 'Almuerzo'],
-  ['14:30', 'Build con mentoría'], ['17:00', 'Avances'], ['17:30', 'Cierre'],
+// Cronograma para el público: [inicio, fin, bloque]. Los nombres de las charlas son los del menú.
+const HOY: [string, string, string][] = [
+  ['11:00', '11:10', 'Bienvenida'], ['11:10', '11:40', '¿Qué #$%& es Solana?'], ['11:40', '12:20', 'Vamo a codeá'],
+  ['12:20', '13:00', 'Preparando el setup'], ['13:00', '13:30', 'Charla de Devin'], ['13:30', '14:30', 'Almuerzo'],
+  ['14:30', '17:00', '¡A buildear!'], ['17:00', '17:30', 'Show & tell'], ['17:30', '17:40', 'Cierre'],
 ]
+const min = (h: string) => { const [a, b] = h.split(':').map(Number); return a * 60 + b }
+const DIA = [min('11:00'), min('17:40')] // rango de la barra
+const pct = (h: string) => ((min(h) - DIA[0]) / (DIA[1] - DIA[0])) * 100
+const HORAS = ['11', '12', '13', '14', '15', '16', '17']
 
 // Del lun 28/9 al mar 13/10 son 15 días; el sábado 3/10 es el día 6.
 const DIA_HOY = 6
@@ -249,15 +254,24 @@ export const bienvenidos: Charla = {
     },
     {
       titulo: 'Hoy',
-      notas: 'Así sigue el día. A la mañana, charla y demo. A la tarde, a construir con mentoría por mesa. A las 17 cada equipo muestra lo que tiene en 2 minutos.\n\nArrancamos con Solana desde cero.',
+      notas: 'Así sigue el día. A la mañana, dos charlas y la demo en vivo, y después dejamos todo instalado y armamos equipos.\n\nA las 13 la charla de Devin y almorzamos. A la tarde, a buildear con mentoría por mesa, y a las 17 cada equipo muestra lo que tiene en 2 minutos.\n\nArrancamos con ¿Qué #$%& es Solana?',
       contenido: () => (
         <div className="bv">
           <h1><WordsIn text="Hoy" /></h1>
-          <ul className="bv-hoy-lista" data-in>
-            {HOY.map(([h, b], i) => (
-              <li key={h} className={i === 0 ? 'bv-ahora' : undefined}><span>{h}</span>{b}</li>
-            ))}
-          </ul>
+          <div className="bv-dia" data-in>
+            <div className="bv-dia-horas" aria-hidden>
+              {HORAS.map((h) => <span key={h} style={{ left: `${pct(`${h}:00`)}%` }}>{h}</span>)}
+            </div>
+            <ol>
+              {HOY.map(([ini, fin, nombre], i) => (
+                <li key={ini} className={i === 0 ? 'bv-ahora' : nombre === 'Almuerzo' ? 'bv-pausa' : undefined}>
+                  <span className="bv-dia-ini">{ini}</span>
+                  <span className="bv-dia-nombre">{nombre}</span>
+                  <span className="bv-dia-pista"><i style={{ left: `${pct(ini)}%`, width: `${pct(fin) - pct(ini)}%` }} /></span>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       ),
     },
