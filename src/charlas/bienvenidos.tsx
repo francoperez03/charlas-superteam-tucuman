@@ -2,6 +2,7 @@ import { gsap, reducedMotion, WordsIn } from '../motion/motion'
 import { useContext, useLayoutEffect, useRef } from 'react'
 import { Paso, SlideCtx, type Charla } from '../deck/slide'
 import { EQUIPO } from './equipo'
+import { MUNDO } from './mundo'
 
 // Fuente: README.md (premios, 4 pasos), agenda.md (jornada, "Qué juzga Colosseum").
 // Cada slide es una columna del alto del lienzo (.bv): el título arriba y el contenido anclado abajo,
@@ -94,6 +95,30 @@ function Equipo() {
   )
 }
 
+// Mapa del mundo: con → (paso 1) se apaga todo menos Argentina, que se marca con contorno y relleno.
+function Mundo() {
+  const { step } = useContext(SlideCtx)
+  return (
+    <div className="bv-mundo" data-arg={step >= 1 || undefined} data-in>
+      <div className="bv-mundo-texto">
+        <div className="bv-mundo-a">
+          <span className="bv-etq">En el mundo</span>
+          <p>El hackathon global de <b>Colosseum</b> y <b>Solana</b>.</p>
+        </div>
+        <div className="bv-mundo-b">
+          <span className="bv-etq">En Argentina</span>
+          <p><b>Superteam Argentina</b> arma un track propio.</p>
+          <p className="bv-mundo-premio">USD 10.000<span>solo para participantes de acá</span></p>
+        </div>
+      </div>
+      <svg viewBox={`0 0 ${MUNDO.ancho} ${MUNDO.alto}`} role="img" aria-label="Mapa del mundo con Argentina marcada">
+        <path className="bv-otros" d={MUNDO.otros} />
+        <path className="bv-arg" d={MUNDO.argentina} />
+      </svg>
+    </div>
+  )
+}
+
 export const bienvenidos: Charla = {
   slug: 'bienvenidos',
   titulo: 'Bienvenidos',
@@ -131,20 +156,12 @@ export const bienvenidos: Charla = {
     },
     {
       titulo: 'Qué es Colosseum',
-      notas: 'Colosseum organiza los hackathons globales de Solana. Este se llama Crypto World\'s Fair.\n\nSuperteam Argentina arma un track propio para los que estamos acá, con premios aparte.',
+      pasos: 1,
+      notas: 'Colosseum organiza los hackathons globales de Solana. Este se llama Crypto World\'s Fair y participa gente de todo el mundo.\n\n→ Pero acá jugamos en Argentina: Superteam Argentina arma un track propio, con 10.000 dólares en premios solo para participantes de acá.',
       contenido: () => (
         <div className="bv">
           <h1><WordsIn text="Crypto World's Fair" /></h1>
-          <div className="bv-dos-col">
-            <div data-in>
-              <span className="bv-etq">En el mundo</span>
-              <p>El hackathon global de <b>Colosseum</b> y <b>Solana</b>.</p>
-            </div>
-            <div data-in>
-              <span className="bv-etq">En Argentina</span>
-              <p><b>Superteam Argentina</b> arma un track propio, con premios propios.</p>
-            </div>
-          </div>
+          <Mundo />
         </div>
       ),
     },

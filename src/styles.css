@@ -145,9 +145,21 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .bv-equipo figcaption { display: grid; gap: 12px; margin-top: 32px; font: 500 30px/1.2 var(--sans); color: var(--body); }
 .bv-equipo b { font: 800 40px/1.1 var(--mono); color: var(--ink); text-transform: uppercase; }
 
-.bv-dos-col { display: grid; grid-template-columns: 1fr 1fr; gap: 120px; border-top: 3px dashed var(--rule); padding-top: 48px; }
-.bv-dos-col p { margin-top: 24px; font: 400 60px/1.25 var(--sans); color: var(--body); text-wrap: pretty; }
-.bv-dos-col b { color: var(--ink); font-weight: 700; }
+/* mapa: el texto de la izquierda cambia con el paso; Argentina primero toma el contorno y después el relleno */
+.bv-mundo { display: grid; grid-template-columns: 520px 1100px; gap: 60px; align-items: end; }
+.bv-mundo-texto { display: grid; padding-bottom: 20px; }
+.bv-mundo-texto > div { grid-area: 1 / 1; transition: opacity 0.6s var(--ease-roll), transform 0.6s var(--ease-roll); }
+.bv-mundo-texto p { margin-top: 20px; font: 400 48px/1.25 var(--sans); color: var(--body); text-wrap: pretty; }
+.bv-mundo-texto b { color: var(--ink); font-weight: 700; }
+.bv-mundo-b, .bv-mundo[data-arg] .bv-mundo-a { opacity: 0; transform: translateY(24px); }
+.bv-mundo[data-arg] .bv-mundo-b { opacity: 1; transform: none; transition-delay: 0.35s; }
+.bv-mundo-texto .bv-mundo-premio { margin-top: 36px; font: 800 80px/1 var(--mono); color: var(--yellow); white-space: nowrap; }
+.bv-mundo-premio span { display: block; margin-top: 14px; font: 400 32px/1.2 var(--sans); color: var(--body); }
+.bv-mundo svg { width: 1100px; height: auto; display: block; }
+.bv-otros, .bv-arg { fill: var(--peri); fill-opacity: 0.55; stroke: var(--bg); stroke-width: 0.8; stroke-linejoin: round; transition: fill 0.7s var(--ease-roll), fill-opacity 0.7s var(--ease-roll), stroke 0.5s var(--ease-roll), stroke-width 0.5s var(--ease-roll); }
+.bv-mundo[data-arg] .bv-otros { fill: var(--muted); fill-opacity: 0.12; }
+.bv-mundo[data-arg] .bv-arg { stroke: var(--yellow); stroke-width: 3; fill: var(--yellow); fill-opacity: 1; transition-delay: 0.45s, 0.45s, 0s, 0s; }
+@media (prefers-reduced-motion: reduce) { .bv-mundo-texto > div, .bv-otros, .bv-arg { transition: none; } }
 
 .bv-linea { position: relative; padding-top: 170px; }
 .bv-linea .bv-hoy { position: absolute; top: 0; display: grid; gap: 18px; padding: 0 0 32px 28px; border-left: 4px solid var(--yellow); margin-left: -2px; }
