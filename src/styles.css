@@ -274,27 +274,35 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .sl-usdc img { width: 200px; height: 200px; }
 .sl-usdc b { font: 800 130px/1 var(--mono); color: var(--ink); white-space: nowrap; }
 
-.sl-rubros { list-style: none; padding: 0; }
-.sl-rubros li { display: grid; grid-template-columns: 70px 760px 200px 1fr; align-items: center; gap: 32px; padding: 14px 0; border-bottom: 1.5px dashed var(--rule); }
+/* tarjetas de rubros: giran en Y, frente con el rubro y dorso con los dos ejemplos */
+.sl-cartas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; perspective: 2400px; }
+.sl-carta { position: relative; height: 290px; transform-style: preserve-3d; transition: transform 0.8s var(--ease-roll); }
+.sl-carta[data-girada] { transform: rotateY(180deg); }
+.sl-cara { position: absolute; inset: 0; display: grid; align-content: space-between; padding: 32px 36px; border-radius: 16px; background: var(--box); border: 2px solid var(--box-line); backface-visibility: hidden; }
+.sl-cara b { font: 700 48px/1.1 var(--sans); color: var(--ink); text-wrap: balance; }
+.sl-dif-fila { display: flex; align-items: center; gap: 20px; }
+.sl-dorso { transform: rotateY(180deg); background: var(--yellow); border-color: var(--yellow); align-content: start; gap: 14px; }
+.sl-dorso .bv-etq { color: var(--on-yellow); opacity: 0.7; margin-bottom: 8px; }
+.sl-dorso p { font: 600 36px/1.2 var(--sans); color: var(--on-yellow); }
+.sl-dorso p::before { content: '→ '; }
 .sl-rubro-n { font: 800 44px/1 var(--mono); color: var(--peri); }
-.sl-rubro { font: 600 46px/1.15 var(--sans); color: var(--ink); }
 .sl-dif { display: flex; gap: 10px; }
 .sl-dif i { width: 52px; height: 20px; border-radius: 6px; background: var(--box-line); }
 .sl-dif[data-n="1"] i:nth-child(-n+1), .sl-dif[data-n="2"] i:nth-child(-n+2), .sl-dif[data-n="3"] i { background: var(--yellow); }
-.sl-dif-t { font: 500 32px/1 var(--mono); color: var(--muted); }
+.sl-dif-t { font: 500 28px/1 var(--mono); color: var(--muted); white-space: nowrap; }
 
-.sl-barra { display: grid; grid-template-columns: 9fr 1fr; height: 300px; gap: 8px; }
-.sl-barra > div { display: grid; align-content: end; gap: 12px; padding: 32px; border-radius: 16px; }
-.sl-web { background: var(--box); border: 2px solid var(--box-line); }
-.sl-web b { font: 800 72px/1 var(--mono); color: var(--ink); text-transform: uppercase; }
-.sl-web span { font: 400 36px/1.2 var(--sans); color: var(--body); }
-.sl-valor { background: var(--yellow); position: relative; }
-.sl-valor b, .sl-valor span { position: absolute; right: 0; white-space: nowrap; color: var(--yellow); text-align: right; }
-.sl-valor b { bottom: calc(100% + 64px); font: 800 52px/1 var(--mono); text-transform: uppercase; }
-.sl-valor span { bottom: calc(100% + 18px); font: 400 34px/1 var(--sans); }
-
-.sl-respuestas { display: grid; gap: 16px; margin-top: 40px; }
-.sl-respuestas p { font: 400 48px/1.25 var(--sans); color: var(--body); }
-.sl-respuestas b { color: var(--yellow); font-weight: 700; }
-@media (prefers-reduced-motion: reduce) { .sl-carrera .sl-pista i, .sl-carril-t { transition: none !important; } }
+.sl-capas { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+.sl-capas > div { padding: 40px 44px; border-radius: 16px; border: 2px solid var(--box-line); background: var(--box); }
+.sl-capas ul { list-style: none; padding: 0; margin-top: 24px; display: grid; gap: 14px; }
+.sl-capas li { font: 500 46px/1.2 var(--sans); color: var(--ink); }
+.sl-capas .sl-capa-sol { border-color: var(--yellow); background: #f1c92114; }
+.sl-capa-sol .bv-etq, .sl-capa-sol li { color: var(--yellow); }
+.sl-casos { display: grid; gap: 24px; }
+.sl-caso { display: grid; grid-template-columns: 560px 1fr auto; align-items: center; gap: 40px; padding: 30px 40px; border-radius: 16px; border: 2px solid var(--box-line); }
+.sl-caso b { font: 700 46px/1.15 var(--sans); color: var(--ink); }
+.sl-caso span { font: 400 36px/1.25 var(--sans); color: var(--body); }
+.sl-caso em { font: 800 32px/1 var(--mono); font-style: normal; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.sl-caso-si { border-color: var(--yellow); }
+.sl-caso-si em { color: var(--yellow); }
+@media (prefers-reduced-motion: reduce) { .sl-carrera .sl-pista i, .sl-carril-t, .sl-carta { transition: none !important; } }
 .bv-monto.sl-monto { font-size: 250px; }

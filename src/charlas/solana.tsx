@@ -29,10 +29,41 @@ const PALABRAS = [
 ]
 
 // Los seis rubros de la Guía 3 (guias/03-que-construir.md), en el mismo orden y con la misma dificultad.
-const RUBROS: [string, string, number][] = [
-  ['Pagos y cobros', 'fácil', 1], ['Entradas y rifas', 'fácil', 1], ['Trazabilidad', 'fácil', 1],
-  ['Tokenización', 'fácil a medio', 2], ['Agentes de IA que pagan', 'medio', 2], ['Marketplace', 'medio a difícil', 3],
+// Atrás de cada tarjeta, los dos ejemplos de la guía.
+const RUBROS: [string, string, number, string, string][] = [
+  ['Pagos y cobros', 'fácil', 1, 'Plata que llega de afuera', 'La caja del club, a la vista'],
+  ['Entradas y rifas', 'fácil', 1, 'Entradas para un recital', 'La rifa de la promo'],
+  ['Trazabilidad', 'fácil', 1, 'Limones tucumanos de exportación', 'El historial de un auto usado'],
+  ['Tokenización', 'fácil a medio', 2, 'Los puntos del café del barrio', 'Preventa de una producción'],
+  ['Agentes de IA que pagan', 'medio', 2, 'Un agente que paga por consulta', 'Un agente que cobra por su trabajo'],
+  ['Marketplace', 'medio a difícil', 3, 'Compraventa con pago en custodia', 'Trabajos freelance por etapas'],
 ]
+
+// Tarjetas de rubros: con cada → gira la siguiente y muestra sus ejemplos.
+function Rubros() {
+  const { step } = useContext(SlideCtx)
+  return (
+    <div className="sl-cartas">
+      {RUBROS.map(([r, d, n, a, b], i) => (
+        // la entrada (data-in) va en el contenedor: GSAP deja un transform fijo que pisaría el giro
+        <div key={r} data-in>
+        <div className="sl-carta" data-girada={step > i || undefined}>
+          <div className="sl-cara">
+            <span className="sl-rubro-n">{i + 1}</span>
+            <b>{r}</b>
+            <span className="sl-dif-fila"><span className="sl-dif" data-n={n}><i /><i /><i /></span><span className="sl-dif-t">{d}</span></span>
+          </div>
+          <div className="sl-cara sl-dorso">
+            <span className="bv-etq">{r}</span>
+            <p>{a}</p>
+            <p>{b}</p>
+          </div>
+        </div>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 // Carrera: con → arrancan las tres barras. Solana llega en medio segundo; las otras apenas se mueven.
 function Carrera() {
@@ -192,54 +223,51 @@ const slides: Slide[] = [
   },
   {
     titulo: 'Qué construir',
-    notas: 'Qué se puede construir hoy, de lo más simple a lo más desafiante. Es la Guía 3: dos ideas por rubro, pensadas para problemas de acá.\n\nLos tres primeros se hacen con programas que ya existen. El marketplace necesita un programa propio: para el sábado, arranquen con pago directo.',
+    pasos: 6,
+    notas: 'Qué se puede construir hoy, de lo más simple a lo más desafiante. Es la Guía 3. Con cada → se da vuelta una tarjeta y aparecen dos ideas de ese rubro, pensadas para problemas de acá.\n\nLos tres primeros se hacen con programas que ya existen. El marketplace necesita un programa propio: para el sábado, arranquen con pago directo.',
     contenido: () => (
       <div className="bv">
-        <div>
-          <h1><WordsIn text="Qué construir hoy" /></h1>
-          <p className="bv-bajada bv-gap-s" data-in>De lo más simple a lo más desafiante. Ideas en la Guía 3.</p>
-        </div>
-        <ol className="sl-rubros" data-in>
-          {RUBROS.map(([r, d, n], i) => (
-            <li key={r}>
-              <span className="sl-rubro-n">{i + 1}</span>
-              <span className="sl-rubro">{r}</span>
-              <span className="sl-dif" data-n={n}><i /><i /><i /></span>
-              <span className="sl-dif-t">{d}</span>
-            </li>
-          ))}
-        </ol>
+        <h1><WordsIn text="Qué construir hoy" /></h1>
+        <Rubros />
       </div>
     ),
   },
   {
-    titulo: 'Tu producto',
-    notas: 'El 90 % de lo que van a construir es una app web común: pantallas, usuarios, una base de datos. Solana entra en la parte donde se mueve valor.',
+    titulo: 'Dónde entra Solana',
+    pasos: 1,
+    notas: 'Un ejemplo para que se vea dónde entra Solana: una app de entradas para un recital.\n\nCasi todo es una app web como cualquier otra: la página de venta, el login, los mails, el panel del organizador. Eso lo hacen como siempre.\n\n→ Solana entra en dos lugares: la entrada es un token que queda en tu wallet, y el cobro es en USDC. Nada más.',
     contenido: () => (
       <div className="bv">
-        <h1><WordsIn text="Tu producto" /></h1>
-        <div className="sl-barra" data-in>
-          <div className="sl-web"><b>Tu app</b><span>pantallas, usuarios, base de datos</span></div>
-          <div className="sl-valor"><b>Solana</b><span>donde se mueve la plata</span></div>
+        <div>
+          <h1><WordsIn text="Dónde entra Solana" /></h1>
+          <p className="bv-bajada bv-gap-s" data-in>Ejemplo: una app de entradas para un recital.</p>
+        </div>
+        <div className="sl-capas">
+          <div data-in>
+            <span className="bv-etq">Lo hacés como siempre</span>
+            <ul><li>Página de venta</li><li>Login</li><li>Mails</li><li>Panel del organizador</li></ul>
+          </div>
+          <Paso n={1} className="sl-capa-sol">
+            <span className="bv-etq">Lo hace Solana</span>
+            <ul><li>La entrada: un token en tu wallet</li><li>El cobro: en USDC</li></ul>
+          </Paso>
         </div>
       </div>
     ),
   },
   {
     titulo: 'La prueba de la planilla',
-    pasos: 1,
-    notas: 'Y la pregunta que vamos a repetir todo el día, la misma de la Guía 3: ¿tu producto andaría igual con una planilla compartida y una billetera virtual?\n\n→ Si anda igual, todavía no necesita Solana. Si se queda corto, ahí está la idea.\n\nY ahora, a construir: Hagamos una app.',
+    pasos: 2,
+    notas: 'La pregunta que vamos a repetir todo el día, la misma de la Guía 3: ¿tu producto andaría igual con una planilla compartida y una billetera virtual?\n\n→ Una lista de tareas del equipo: con una planilla anda perfecto. Todavía no necesita Solana.\n\n→ Plata que llega de afuera: la planilla anota, pero no mueve dólares. Ahí entra Solana, y ahí está la idea.\n\nY ahora, a construir: Hagamos una app.',
     contenido: () => (
       <div className="bv">
-        <h1><WordsIn text="La prueba de la planilla" /></h1>
         <div>
-          <p className="sl-frase" data-in>¿Tu producto andaría igual con una planilla compartida y una billetera virtual?</p>
-          <Paso n={1}>
-            <div className="sl-respuestas">
-              <p><b>¿Anda igual?</b> Todavía no necesita Solana.</p>
-              <p><b>¿Se queda corto?</b> Ahí está tu idea.</p>
-            </div>
-          </Paso>
+          <h1><WordsIn text="La prueba de la planilla" /></h1>
+          <p className="bv-bajada bv-gap-s" data-in>¿Tu producto andaría igual con una planilla compartida y una billetera virtual?</p>
+        </div>
+        <div className="sl-casos">
+          <Paso n={1}><div className="sl-caso"><b>Lista de tareas del equipo</b><span>Anda igual con una planilla</span><em>Todavía no necesita Solana</em></div></Paso>
+          <Paso n={2}><div className="sl-caso sl-caso-si"><b>Plata que llega de afuera</b><span>La planilla anota, pero no mueve dólares</span><em>Ahí está tu idea</em></div></Paso>
         </div>
       </div>
     ),
