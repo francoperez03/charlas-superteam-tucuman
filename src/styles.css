@@ -310,3 +310,15 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .sl-caso-si em { color: var(--yellow); }
 @media (prefers-reduced-motion: reduce) { .sl-carrera .sl-pista i, .sl-carril-t, .sl-carta { transition: none !important; } }
 .bv-monto.sl-monto { font-size: 250px; }
+
+/* cadena wallet → transacción → programa → cuenta: cada flecha entra junto con la caja a la que llega.
+   Grilla de 7 columnas (caja, flecha, caja...): las cuatro cajas quedan del mismo ancho. */
+.sl-cadena { --f: 130px; display: grid; grid-template-columns: minmax(0, 1fr) repeat(3, var(--f) minmax(0, 1fr)); align-items: stretch; }
+.sl-eslabon { display: grid; grid-column: span 2; grid-template-columns: var(--f) minmax(0, 1fr); align-items: center; }
+.sl-eslabon:first-child { grid-column: span 1; grid-template-columns: minmax(0, 1fr); }
+.sl-nodo { align-self: stretch; display: grid; align-content: start; gap: 16px; min-height: 260px; padding: 32px 26px; border-radius: 16px; border: 2px solid var(--box-line); background: var(--box); }
+.sl-nodo b { font: 800 40px/1 var(--mono); color: var(--yellow); text-transform: uppercase; }
+.sl-nodo span { font: 400 36px/1.25 var(--sans); color: var(--ink); }
+.sl-flecha { position: relative; height: 4px; background: var(--peri); margin: 0 18px 0 4px; }
+.sl-flecha::after { content: ''; position: absolute; right: -14px; top: -10px; border-style: solid; border-width: 12px 0 12px 16px; border-color: transparent transparent transparent var(--peri); }
+.sl-flecha span { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); font: 700 22px/1 var(--mono); color: var(--peri); white-space: nowrap; }

@@ -22,11 +22,12 @@ const EXISTE = [
   ['Agentes de IA', '70 %', 'de los pagos x402 de agentes pasan por Solana'],
 ]
 
+// Las cuatro palabras como cadena: [palabra, qué es, la flecha que llega desde la anterior].
 const PALABRAS = [
-  ['Wallet', 'Tu usuario. Sin mail ni contraseña.'],
-  ['Cuenta', 'Donde vive la data: saldos, estado de una app.'],
-  ['Transacción', 'Una orden firmada por tu wallet.'],
-  ['Programa', 'El backend que corre en la red. Para lo común ya hay hechos.'],
+  ['Wallet', 'tu usuario, sin mail ni contraseña', ''],
+  ['Transacción', 'una orden', 'firma'],
+  ['Programa', 'el backend que corre en la red', 'llama a'],
+  ['Cuenta', 'donde vive la data: saldos, estado', 'escribe en'],
 ]
 
 // Los seis rubros de la Guía 3 (guias/03-que-construir.md), en el mismo orden y con la misma dificultad.
@@ -209,12 +210,18 @@ const slides: Slide[] = [
   },
   {
     titulo: 'Cuatro palabras',
-    notas: 'Para hoy alcanza con cuatro palabras. Wallet, cuenta, transacción y programa. Para lo común, transferir o crear un token, el programa ya existe y se usa sin escribir uno.',
+    pasos: 3,
+    notas: 'Para hoy alcanza con cuatro palabras, y van en cadena.\n\nTu wallet es tu usuario: sin mail ni contraseña.\n\n→ Con ella firmás una transacción: una orden.\n\n→ La transacción llama a un programa: el backend que corre en la red. Para lo común, transferir o crear un token, el programa ya existe.\n\n→ El programa escribe en una cuenta: ahí vive la data, los saldos, el estado de tu app.',
     contenido: () => (
       <div className="bv">
         <h1><WordsIn text="Cuatro palabras y nada más" /></h1>
-        <div className="bv-jurado">
-          {PALABRAS.map(([w, d]) => <div key={w} data-in><span className="bv-etq">{w}</span><p>{d}</p></div>)}
+        <div className="sl-cadena">
+          {PALABRAS.map(([w, d, flecha], i) => (
+            <Paso key={w} n={i} className="sl-eslabon">
+              {flecha && <div className="sl-flecha"><span>{flecha}</span></div>}
+              <div className="sl-nodo"><b>{w}</b><span>{d}</span></div>
+            </Paso>
+          ))}
         </div>
       </div>
     ),
