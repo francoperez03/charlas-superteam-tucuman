@@ -188,8 +188,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .bv-fecha b { display: inline-block; color: var(--on-yellow); background: var(--yellow); padding: 0 0.25em; border-radius: 12px; font: 800 0.95em/1.2 var(--mono); }
 
 /* el día como pista: cada bloque ocupa en la barra lo que dura, así se ve la mañana corta y la tarde de build */
-.bv-dia { --col: 150px 620px 1fr; }
-.bv-dia-horas { position: relative; margin-left: calc(150px + 620px + 2 * 40px); height: 40px; font: 700 26px/1 var(--mono); color: var(--muted); }
+.bv-dia { --col: 150px 820px 1fr; }
+.bv-dia-horas { position: relative; margin-left: calc(150px + 820px + 2 * 40px); height: 40px; font: 700 26px/1 var(--mono); color: var(--muted); }
 .bv-dia-horas span { position: absolute; top: 0; transform: translateX(-50%); }
 .bv-dia ol { list-style: none; padding: 0; }
 .bv-dia li { display: grid; grid-template-columns: var(--col); gap: 40px; align-items: center; padding: 9px 0; border-bottom: 1.5px dashed var(--rule); }

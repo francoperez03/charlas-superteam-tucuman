@@ -18,7 +18,7 @@ const PASOS_PARTICIPAR = [
 // Cronograma para el público: [inicio, fin, bloque]. Los nombres de las charlas son los del menú.
 const HOY: [string, string, string][] = [
   ['11:00', '11:10', 'Bienvenida'], ['11:10', '11:40', '¿Qué #$%& es Solana?'], ['11:40', '12:20', 'Vamo a codeá'],
-  ['12:20', '13:00', 'Preparando el setup'], ['13:00', '13:30', 'Charla de Devin'], ['13:30', '14:30', 'Almuerzo'],
+  ['12:20', '13:00', 'Preparando el setup'], ['13:00', '13:30', 'Cómo comienzo mi investigación con IA'], ['13:30', '14:30', 'Almuerzo'],
   ['14:30', '17:00', '¡A buildear!'], ['17:00', '17:30', 'Show & tell'], ['17:30', '17:40', 'Cierre'],
 ]
 const min = (h: string) => { const [a, b] = h.split(':').map(Number); return a * 60 + b }
@@ -254,7 +254,7 @@ export const bienvenidos: Charla = {
     },
     {
       titulo: 'Hoy',
-      notas: 'Así sigue el día. A la mañana, dos charlas y la demo en vivo, y después dejamos todo instalado y armamos equipos.\n\nA las 13 la charla de Devin y almorzamos. A la tarde, a buildear con mentoría por mesa, y a las 17 cada equipo muestra lo que tiene en 2 minutos.\n\nArrancamos con ¿Qué #$%& es Solana?',
+      notas: 'Así sigue el día. A la mañana, dos charlas y la demo en vivo, y después dejamos todo instalado y armamos equipos.\n\nA las 13 la charla de cómo comenzar la investigación con IA, y almorzamos. A la tarde, a buildear con mentoría por mesa, y a las 17 cada equipo muestra lo que tiene en 2 minutos.\n\nArrancamos con ¿Qué #$%& es Solana?',
       contenido: () => (
         <div className="bv">
           <h1><WordsIn text="Hoy" /></h1>
