@@ -63,7 +63,7 @@ export const bienvenidos: Charla = {
                 </div>
                 <figcaption>
                   <b>{p.nombre}</b>
-                  <span>{p.qr.red} · {p.qr.usuario}</span>
+                  {p.rol && <span>{p.rol}</span>}
                 </figcaption>
               </figure>
             ))}

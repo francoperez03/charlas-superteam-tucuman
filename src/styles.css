@@ -137,10 +137,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .bv-carpincho { position: absolute; right: 120px; bottom: 130px; width: 520px; }
 
 .bv-equipo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; }
-.bv-equipo-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.bv-equipo-fila { display: grid; grid-template-columns: 1fr 150px; gap: 20px; align-items: end; }
 .bv-equipo-fila img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 16px; }
 .bv-equipo-fila .bv-qr { object-fit: contain; image-rendering: pixelated; }
-.bv-equipo figcaption { display: grid; gap: 12px; margin-top: 32px; font: 500 28px/1.2 var(--mono); color: var(--muted); }
+.bv-equipo figcaption { display: grid; gap: 12px; margin-top: 32px; font: 500 30px/1.2 var(--sans); color: var(--body); }
 .bv-equipo b { font: 800 40px/1.1 var(--mono); color: var(--ink); text-transform: uppercase; }
 
 .bv-dos-col { display: grid; grid-template-columns: 1fr 1fr; gap: 120px; border-top: 3px dashed var(--rule); padding-top: 48px; }
