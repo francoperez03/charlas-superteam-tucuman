@@ -59,3 +59,5 @@ Van en `public/img/` y se usan con la ruta `/img/nombre.png`.
 ## Con qué está hecho
 
 React, Vite, TypeScript y GSAP. Estado en la URL (`?charla=solana&slide=3&step=1`), sin router y sin backend.
+
+El menú tiene un fondo animado muy tenue hecho con [vgpu](https://vgpu.sh) (WebGPU), en `src/fondo.ts`. Es decorativo: si el navegador no tiene WebGPU, no se dibuja y queda el fondo de siempre.

@@ -1,10 +1,19 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import { gsap, REVEAL, reducedMotion, Roll } from './motion/motion'
 import { CHARLAS } from './charlas'
 import { escribirURL } from './deck/state'
 
 export function Menu({ onElegir }: { onElegir: (slug: string) => void }) {
   const scope = useRef<HTMLElement>(null)
+  const fondo = useRef<HTMLCanvasElement>(null)
+  // Fondo animado con vgpu, solo si el navegador tiene WebGPU. Se carga aparte para no pesar en el arranque.
+  useEffect(() => {
+    if (!('gpu' in navigator)) return
+    let vivo = true
+    let parar: (() => void) | undefined
+    import('./fondo').then((m) => { if (vivo && fondo.current) parar = m.iniciarFondo(fondo.current, reducedMotion()) }).catch(() => {})
+    return () => { vivo = false; parar?.() }
+  }, [])
   // Entrada: cada título sube desde su máscara, uno detrás del otro (M-REV-01), y el resto aparece detrás.
   useLayoutEffect(() => {
     if (reducedMotion()) return
@@ -16,6 +25,7 @@ export function Menu({ onElegir }: { onElegir: (slug: string) => void }) {
   }, [])
   return (
     <main ref={scope} className="menu">
+      <canvas ref={fondo} className="fondo" aria-hidden />
       <header className="menu-top" data-in>
         <img src="/logo-superteam-arg.png" alt="Superteam Argentina" />
         <p>Road to Colosseum X Tucumán · sáb 3 oct</p>
