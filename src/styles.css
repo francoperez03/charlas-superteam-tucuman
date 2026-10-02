@@ -47,7 +47,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .lista li + li { border-top: 1.5px dashed var(--rule); }
 .item { display: grid; grid-template-columns: 3.4ch 1fr; column-gap: clamp(12px, 2vw, 32px); align-items: baseline; padding: clamp(10px, 2vh, 32px) 0; color: var(--ink); text-decoration: none; }
 /* hover sutil: el título pasa a amarillo */
-.item-titulo > span { display: inline-block; line-height: 1.25; white-space: nowrap; transition: color 0.35s ease-out; }
+.item-titulo > span { display: inline-block; line-height: 1.1; text-wrap: balance; transition: color 0.35s ease-out; }
 .item:hover .item-titulo > span, .item:focus-visible .item-titulo > span { color: var(--yellow); }
 .item-n { font: 700 clamp(0.8rem, 1.2vw, 1.1rem)/1 var(--mono); color: var(--peri); letter-spacing: 0.08em; }
 .item-titulo { display: block; overflow: clip; font: 800 clamp(1.35rem, 5.8vw, 7rem)/1 var(--mono); text-transform: uppercase; letter-spacing: -0.01em; }
