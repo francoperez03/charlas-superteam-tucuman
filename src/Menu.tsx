@@ -41,10 +41,7 @@ export function Menu({ onElegir }: { onElegir: (slug: string) => void }) {
               >
                 <span className="item-n" data-in>{String(i + 1).padStart(2, '0')}</span>
                 <span className="item-titulo"><span>{c.titulo}</span></span>
-                <span className="item-meta" data-in>
-                  <span className="item-bajada">{c.bajada}</span>
-                  <span className="item-datos">{c.minutos} min · {c.slides.length} slides <span className="flecha" aria-hidden>→</span></span>
-                </span>
+                <span className="item-bajada" data-in>{c.bajada}</span>
               </a>
             </li>
           ))}

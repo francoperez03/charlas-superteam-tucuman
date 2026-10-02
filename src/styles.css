@@ -46,17 +46,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .lista { list-style: none; padding: 0; align-self: center; position: relative; z-index: 1; }
 .lista li + li { border-top: 1.5px dashed var(--rule); }
 .item { display: grid; grid-template-columns: 3.4ch 1fr; column-gap: clamp(12px, 2vw, 32px); align-items: baseline; padding: clamp(10px, 2vh, 32px) 0; color: var(--ink); text-decoration: none; }
-/* hover sutil: el título pasa a amarillo y la flecha se corre */
+/* hover sutil: el título pasa a amarillo */
 .item-titulo > span { display: inline-block; line-height: 1.25; white-space: nowrap; transition: color 0.35s ease-out; }
 .item:hover .item-titulo > span, .item:focus-visible .item-titulo > span { color: var(--yellow); }
 .item-n { font: 700 clamp(0.8rem, 1.2vw, 1.1rem)/1 var(--mono); color: var(--peri); letter-spacing: 0.08em; }
 .item-titulo { display: block; overflow: clip; font: 800 clamp(1.35rem, 5.8vw, 7rem)/1 var(--mono); text-transform: uppercase; letter-spacing: -0.01em; }
-.item-meta { grid-column: 2; display: flex; align-items: baseline; gap: 8px clamp(20px, 3vw, 48px); flex-wrap: wrap; margin-top: clamp(4px, 1vh, 12px); }
-.item-bajada { font-size: clamp(1rem, 1.5vw, 1.375rem); color: var(--body); }
-.item-datos { font: 500 clamp(0.75rem, 1vw, 0.95rem)/1.2 var(--mono); color: var(--muted); white-space: nowrap; transition: color 0.3s ease-out; }
-.flecha { display: inline-block; margin-left: 0.6em; transition: transform 1.2s var(--ease-roll); } /* M-HOV-02 */
-.item:hover .item-datos, .item:focus-visible .item-datos { color: var(--yellow); }
-.item:hover .flecha, .item:focus-visible .flecha { transform: translateX(16px); }
+.item-bajada { grid-column: 2; margin-top: clamp(4px, 1vh, 12px); font-size: clamp(1rem, 1.5vw, 1.375rem); color: var(--body); }
 .menu-pie { display: flex; align-items: center; gap: 12px clamp(24px, 4vw, 64px); flex-wrap: wrap; color: var(--muted); font-size: 0.875rem; position: relative; z-index: 1; }
 .firma { display: flex; align-items: center; gap: 0.6em; }
 .firma img { height: 1.15em; }
@@ -64,7 +59,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .carpincho { position: absolute; right: clamp(8px, 3vw, 64px); bottom: clamp(16px, 4vh, 48px); width: clamp(140px, 17vw, 300px); pointer-events: none; }
 @media (max-width: 700px) {
   .item { grid-template-columns: 1fr; row-gap: 6px; }
-  .item-meta { grid-column: 1; }
+  .item-bajada { grid-column: 1; }
   .carpincho { display: none; }
 }
 
@@ -123,5 +118,5 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .pres-vacio { display: grid; place-items: center; padding: 24px; text-align: center; font-size: 1.25rem; color: var(--body); }
 
 @media (prefers-reduced-motion: reduce) {
-  .item-titulo > span, .flecha, .avance i, .item-datos, .hud-menu { transition: none; }
+  .item-titulo > span, .avance i, .hud-menu { transition: none; }
 }
