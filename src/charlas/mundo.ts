@@ -10,5 +10,6 @@ export const CHAPTERS = [
   { nombre: 'Chaco', x: 374.1, y: 419.8 },
   { nombre: 'Corrientes', x: 374.5, y: 419.8 },
   { nombre: 'Mendoza', x: 348.1, y: 439.4 },
+  { nombre: 'CABA', x: 379.8, y: 445.5 },
   { nombre: 'Buenos Aires (MDQ)', x: 384.4, y: 457.7 },
 ]

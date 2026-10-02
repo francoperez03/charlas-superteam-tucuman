@@ -70,7 +70,7 @@ const zoomed = (x: number, y: number) => ({ x: MUNDO.ancho / 2 + (x - 366) * ZOO
 // sus nombres se apilan a la derecha, con una línea hasta el punto.
 const ETIQUETA: Record<string, { dx: number; dy: number; fin?: boolean }> = {
   Jujuy: { dx: -22, dy: 0, fin: true }, Tucumán: { dx: -22, dy: 6, fin: true }, Mendoza: { dx: -22, dy: 0, fin: true },
-  Formosa: { dx: 22, dy: -8 }, Chaco: { dx: 60, dy: 26 }, Corrientes: { dx: 60, dy: 60 }, 'Buenos Aires (MDQ)': { dx: 22, dy: 0 },
+  Formosa: { dx: 22, dy: -8 }, Chaco: { dx: 60, dy: 26 }, Corrientes: { dx: 60, dy: 60 }, CABA: { dx: 22, dy: 0 }, 'Buenos Aires (MDQ)': { dx: 22, dy: 0 },
 }
 
 function Mundo() {
@@ -152,7 +152,7 @@ export const bienvenidos: Charla = {
     {
       titulo: 'Qué es Colosseum',
       pasos: 1,
-      notas: 'Colosseum organiza los hackathons globales de Solana. Este se llama Crypto World\'s Fair y participa gente de todo el mundo.\n\n→ Pero acá jugamos en Argentina: Superteam Argentina arma un track propio, con 10.000 dólares en premios solo para participantes de acá.\n\nHay chapters en Jujuy, Tucumán, Mendoza, Formosa, Chaco, Corrientes y Buenos Aires (Mar del Plata). Nosotros somos el de Tucumán.',
+      notas: 'Colosseum organiza los hackathons globales de Solana. Este se llama Crypto World\'s Fair y participa gente de todo el mundo.\n\n→ Pero acá jugamos en Argentina: Superteam Argentina arma un track propio, con 10.000 dólares en premios solo para participantes de acá.\n\nHay chapters en Jujuy, Tucumán, Mendoza, Formosa, Chaco, Corrientes, CABA y Buenos Aires (Mar del Plata). Nosotros somos el de Tucumán.',
       contenido: () => (
         <div className="bv">
           <h1><WordsIn text="Hackathon de Colosseum" /></h1>
