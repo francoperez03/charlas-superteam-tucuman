@@ -36,7 +36,8 @@ const RUBROS: [string, string, number, string, string][] = [
   ['Trazabilidad', 'fácil', 1, 'Limones tucumanos de exportación', 'El historial de un auto usado'],
   ['Tokenización', 'fácil a medio', 2, 'Los puntos del café del barrio', 'Preventa de una producción'],
   ['Agentes de IA que pagan', 'medio', 2, 'Un agente que paga por consulta', 'Un agente que cobra por su trabajo'],
-  ['Marketplace', 'medio a difícil', 3, 'Compraventa con pago en custodia', 'Trabajos freelance por etapas'],
+  // El 6 cambia el marketplace de la guía por un caso P2P entre amigos: misma dificultad (custodia con programa propio), más juego.
+  ['Entre amigos (P2P)', 'medio a difícil', 3, 'La vaquita del asado', 'La apuesta del clásico'],
 ]
 
 // Tarjetas de rubros: con cada → gira la siguiente y muestra sus ejemplos.
@@ -224,7 +225,7 @@ const slides: Slide[] = [
   {
     titulo: 'Qué construir',
     pasos: 6,
-    notas: 'Qué se puede construir hoy, de lo más simple a lo más desafiante. Es la Guía 3. Con cada → se da vuelta una tarjeta y aparecen dos ideas de ese rubro, pensadas para problemas de acá.\n\nLos tres primeros se hacen con programas que ya existen. El marketplace necesita un programa propio: para el sábado, arranquen con pago directo.',
+    notas: 'Qué se puede construir hoy, de lo más simple a lo más desafiante. Es la Guía 3. Con cada → se da vuelta una tarjeta y aparecen dos ideas de ese rubro, pensadas para problemas de acá.\n\nLos tres primeros se hacen con programas que ya existen.\n\nEl último es entre amigos, de persona a persona: la vaquita del asado, donde la plata queda guardada y nadie cobra hasta que pagaron todos, o la apuesta del clásico, que se libera cuando termina el partido. Es lo más difícil porque la custodia necesita un programa propio. Para el sábado, arranquen con pago directo y sumen la custodia después.',
     contenido: () => (
       <div className="bv">
         <h1><WordsIn text="Qué construir hoy" /></h1>
