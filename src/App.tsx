@@ -65,9 +65,12 @@ export default function App() {
     return () => { tl.kill(); gsap.set(el, { autoAlpha: 0 }) }
   }, [ruta.charla, ruta.presenter, vista])
 
+  // → en la última slide de una charla vuelve al menú (en el proyector; el presentador se queda).
   const onMover = useCallback((a: Accion) => {
     const r = actual.current
-    ir({ ...r, pos: mover(r.pos, a, pasosDe(r.charla)) })
+    const pos = mover(r.pos, a, pasosDe(r.charla))
+    const alFinal = a === 'next' && pos.slide === r.pos.slide && pos.step === r.pos.step
+    ir(alFinal && !r.presenter ? { ...r, charla: null, pos: { slide: 0, step: 0 } } : { ...r, pos })
   }, [ir])
   const onSalir = useCallback(() => ir({ ...actual.current, charla: null, pos: { slide: 0, step: 0 } }), [ir])
   const onElegir = useCallback((slug: string) => ir({ ...actual.current, charla: slug, pos: { slide: 0, step: 0 } }), [ir])

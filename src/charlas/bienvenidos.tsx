@@ -9,11 +9,12 @@ import { MUNDO } from './mundo'
 // así ninguna deja medio lienzo vacío y todas comparten el mismo borde izquierdo.
 const PUESTOS = [['2.º', '2.000'], ['3.º', '1.500'], ['4.º', '1.000'], ['5.º', '500']]
 
-const PASOS_PARTICIPAR = [
+// El 4.º elemento marca las dos entregas del mismo proyecto (Colosseum y Earn).
+const PASOS_PARTICIPAR: [string, string, string, string?][] = [
   ['Hub en Luma', 'Agenda y novedades', 'luma.com/3qmbyb6h'],
-  ['Cuenta en Colosseum', 'Cada integrante, por separado', 'arena.colosseum.org'],
+  ['Entrega en Colosseum', 'Cuenta de cada integrante', 'arena.colosseum.org', '1.ª entrega'],
   ['Formulario del proyecto', 'Uno por equipo', 'forms.gle/Ej7sGChMBdW1p2WJ9'],
-  ['Entrega en Superteam Earn', 'Solo residentes en Argentina', 'superteam.fun/earn'],
+  ['Entrega en Superteam Earn', 'Solo residentes en Argentina', 'superteam.fun/earn', '2.ª entrega'],
 ]
 
 // Cronograma para el público: [inicio, fin, bloque]. Los nombres de las charlas son los del menú.
@@ -27,9 +28,10 @@ const DIA = [min('11:00'), min('17:40')] // rango de la barra
 const pct = (h: string) => ((min(h) - DIA[0]) / (DIA[1] - DIA[0])) * 100
 const HORAS = ['11', '12', '13', '14', '15', '16', '17']
 
-// Del lun 28/9 al mar 13/10 son 15 días; el sábado 3/10 es el día 6.
-const DIA_HOY = 6
-const DIAS = 15
+// Días desde el lun 28/9 (día 0) hasta el cierre del mar 13/10 (día 15), en % de la barra.
+const ENDIA = (n: number) => `${(n / 15) * 100}%`
+const HOY_DIA = 5 // sáb 3/10
+const MANANA_DIA = 6 // dom 4/10, Demo Day (superteam.ar/colosseum, 2026-10-02)
 
 // Foto y QR encimados en diagonal. Con → (paso 1) giran como dos cartas sólidas alrededor de su centro común:
 // a mitad de vuelta se separan, la que va atrás se achica y la que viene adelante crece, y ahí se cruzan.
@@ -103,7 +105,7 @@ function Mundo() {
       <div className="bv-mundo-texto">
         <div className="bv-mundo-a">
           <span className="bv-etq">En el mundo</span>
-          <p>El hackathon global de <b>Colosseum</b> y <b>Solana</b>.</p>
+          <p>Gente de todo el mundo construyendo sobre <b>Solana</b>.</p>
         </div>
         <div className="bv-mundo-b">
           <span className="bv-etq">En Argentina</span>
@@ -160,23 +162,28 @@ export const bienvenidos: Charla = {
       notas: 'Colosseum organiza los hackathons globales de Solana. Este se llama Crypto World\'s Fair y participa gente de todo el mundo.\n\n→ Pero acá jugamos en Argentina: Superteam Argentina arma un track propio, con 10.000 dólares en premios solo para participantes de acá.',
       contenido: () => (
         <div className="bv">
-          <h1><WordsIn text="Crypto World's Fair" /></h1>
+          <h1><WordsIn text="Hackathon de Colosseum" /></h1>
           <Mundo />
         </div>
       ),
     },
     {
       titulo: 'Dos semanas',
-      notas: 'Arrancó el lunes 28 y la entrega cierra el martes 13 a las 03:59 de acá, que es el 12 a la medianoche de California.\n\nHoy es el día 6. Todo lo que se construya hasta el cierre cuenta.',
+      notas: 'Arrancó el lunes 28 y la entrega cierra el martes 13 a las 03:59 de acá, que es el 12 a la medianoche de California.\n\nOjo con mañana: a las 16 cierra la preselección y a las 19:30 es el Demo Day con los seleccionados. Todo lo que se construya hasta el cierre cuenta.',
       contenido: () => (
         <div className="bv">
           <h1><WordsIn text="Dos semanas" /></h1>
           <div className="bv-linea" data-in>
-            <div className="bv-hoy" style={{ left: `${(DIA_HOY / DIAS) * 100}%` }}><span className="bv-etq">Hoy</span><b>día {DIA_HOY} de {DIAS}</b></div>
-            <div className="bv-barra"><i style={{ width: `${(DIA_HOY / DIAS) * 100}%` }} /></div>
             <div className="bv-hitos">
               <div><span className="bv-etq">Arrancó</span><b>lun 28 sep</b></div>
               <div className="bv-fin"><span className="bv-etq">Cierre · 03:59 hora argentina</span><b>mar 13 oct</b></div>
+            </div>
+            <div className="bv-marca bv-arriba" style={{ left: ENDIA(HOY_DIA) }}><b>Hoy</b></div>
+            <div className="bv-barra"><i style={{ width: ENDIA(HOY_DIA) }} /></div>
+            <div className="bv-marca bv-abajo" style={{ left: ENDIA(MANANA_DIA) }}>
+              <span className="bv-etq">Mañana · dom 4 oct</span>
+              <b>Demo Day</b>
+              <em>16:00 cierra la preselección<br />19:30 Demo Day</em>
             </div>
           </div>
         </div>
@@ -226,32 +233,21 @@ export const bienvenidos: Charla = {
     {
       titulo: 'Cómo se participa',
       pasos: 4,
-      notas: 'Son cuatro pasos y los cuatro son obligatorios para cobrar.\n\n1. El Hub de Luma.\n2. Cuenta en Colosseum, cada uno la suya.\n3. El formulario, uno por equipo.\n4. La entrega en Earn.',
+      notas: 'Son cuatro pasos y los cuatro son obligatorios para cobrar.\n\n1. El Hub de Luma.\n2. Cuenta en Colosseum, cada uno la suya. Ahí va la primera entrega.\n3. El formulario, uno por equipo.\n4. La segunda entrega, en Earn.\n\nEl error más común es entregar en un solo lado. El mismo proyecto va en Colosseum y en Earn, y el formulario no reemplaza ninguna de las dos.',
       contenido: () => (
         <div className="bv">
           <h1><WordsIn text="Cómo se participa" /></h1>
           <div className="bv-pasos">
-            <p className="bv-bajada" data-in>Los cuatro son obligatorios para cobrar premio.</p>
-            {PASOS_PARTICIPAR.map(([t, d, url], i) => (
+            <p className="bv-bajada" data-in>Los cuatro son obligatorios. <b className="bv-ojo">El proyecto se entrega dos veces.</b></p>
+            {PASOS_PARTICIPAR.map(([t, d, url, entrega], i) => (
               <Paso key={t} n={i + 1}>
-                <div className="bv-paso"><span className="bv-n">{i + 1}</span><b>{t}</b><span>{d}</span><code>{url}</code></div>
+                <div className={entrega ? 'bv-paso bv-entrega' : 'bv-paso'}>
+                  <span className="bv-n">{i + 1}</span>
+                  <b>{t}{entrega && <em>{entrega}</em>}</b>
+                  <span>{d}</span><code>{url}</code>
+                </div>
               </Paso>
             ))}
-          </div>
-        </div>
-      ),
-    },
-    {
-      titulo: 'Se entrega dos veces',
-      notas: 'El error más común: entregar en un solo lado. El mismo proyecto va en Colosseum y en Earn. El formulario no reemplaza el registro en Colosseum.',
-      contenido: () => (
-        <div className="bv">
-          <h1><WordsIn text="Se entrega dos veces" /></h1>
-          <div>
-            <div className="bv-dos" data-in>
-              <div>Colosseum</div><span>+</span><div>Superteam Earn</div>
-            </div>
-            <p className="bv-bajada bv-gap-s" data-in>El formulario no reemplaza el registro en Colosseum.</p>
           </div>
         </div>
       ),
@@ -289,6 +285,16 @@ export const bienvenidos: Charla = {
               ))}
             </ol>
           </div>
+        </div>
+      ),
+    },
+    {
+      titulo: 'Bienvenidos',
+      notas: '¡Bienvenidos! Arrancamos.\n\n→ vuelve al menú para abrir ¿Qué #$%& es Solana?',
+      contenido: () => (
+        <div className="bv bv-cierre">
+          <h1><WordsIn text="Bienvenidos" /></h1>
+          <img className="bv-carpincho" src="/mascota-carpincho.png" alt="" data-in />
         </div>
       ),
     },
