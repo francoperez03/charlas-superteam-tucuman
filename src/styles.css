@@ -348,3 +348,4 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .cd-paso { grid-template-columns: 70px 560px 1fr; }
 .cd-url { font: 700 64px/1.2 var(--mono); color: var(--ink); white-space: nowrap; }
 .slide h1.cd-cierre { color: var(--yellow); font-size: 150px; }
+.cd-etq { margin-bottom: 18px; }

@@ -82,20 +82,35 @@ const slides: Slide[] = [
     ),
   },
   {
+    titulo: '0 · Las dos skills',
+    pasos: 1,
+    notas: 'Antes de arrancar, le enseño dos cosas al agente. Son las dos skills que pasó Superteam, y las instalo acá en vivo.\n\nColosseum Copilot: busca en los 8.286 proyectos de los hackathons de Colosseum (colosseum.com/copilot, 2026-10-02). Se instala global con -g y después el login abre el navegador para aprobar con tu cuenta de Colosseum. Ya no hace falta pegar un token: el token viejo de la Guía 1 deja de andar el 28/10 (README de ColosseumOrg/colosseum-copilot, 2026-10-02).\n\n→ Solana dev skill, de la Solana Foundation: el agente escribe código de Solana con las librerías de hoy.\n\nAtajo: en colosseum.com/copilot hay un prompt para pegarle al agente y que instale Copilot solo.',
+    contenido: () => (
+      <div className="bv">
+        <h1><WordsIn text="Dos skills para tu agente" /></h1>
+        <div className="cd-pila">
+          <div data-in>
+            <span className="bv-etq cd-etq">Colosseum Copilot · qué ya se hizo</span>
+            <Term lineas={['npx skills add ColosseumOrg/colosseum-copilot -g', 'npx @colosseum-org/copilot-connect login']} />
+          </div>
+          <Paso n={1}>
+            <span className="bv-etq cd-etq">Solana dev skill · código de Solana de hoy</span>
+            <Term lineas={['npx skills add solana-foundation/solana-dev-skill']} />
+          </Paso>
+        </div>
+      </div>
+    ),
+  },
+  {
     titulo: '1 · Idea',
-    pasos: 2,
-    notas: 'Antes de escribir una línea: ¿esto ya se hizo? Colosseum Copilot busca en los proyectos de los hackathons anteriores de Solana.\n\nSe instala como skill y pide un token personal que se saca en arena.colosseum.org/copilot. Las dos variables del token están en la Guía 1.\n\n→ Y le pregunto. Mirar en la respuesta: qué ya se hizo, cuáles ganaron, qué hueco queda. Ese hueco es la idea.\n\nSin agente: colosseum.com/arena/projects/explore, a mano.',
+    notas: 'Antes de escribir una línea: ¿esto ya se hizo? Le pregunto a Copilot. Mirar en la respuesta: qué ya se hizo, cuáles ganaron, qué hueco queda. Ese hueco es la idea.\n\nSin agente: colosseum.com/arena/projects/explore, a mano.',
     contenido: () => (
       <div className="bv">
         <h1><WordsIn text="1 · ¿Ya se hizo?" /></h1>
         <div className="cd-pila">
           <div data-in>
-            <Term lineas={['npx skills add ColosseumOrg/colosseum-copilot']} />
-            <p className="cd-nota">Token en <b>arena.colosseum.org/copilot</b></p>
-          </div>
-          <Paso n={1}>
             <Prompt>Buscá proyectos de hackathons anteriores parecidos a esta idea: <mark>la caja de un club, a la vista de los socios</mark>. Decime qué ya se hizo, cuáles ganaron y qué hueco queda.</Prompt>
-          </Paso>
+          </div>
         </div>
       </div>
     ),
@@ -103,13 +118,13 @@ const slides: Slide[] = [
   {
     titulo: '2 · Enseñarle Solana',
     pasos: 1,
-    notas: 'Los agentes aprendieron Solana con código viejo y te proponen librerías de hace dos años. Dos cosas para que no pase:\n\nLa skill de la Solana Foundation, y las reglas del stack de Superteam Argentina (superteam.ar/stack): un archivo que dice qué librerías usar y cuáles no.\n\n→ Y le pido que las sume a las instrucciones del repo: CLAUDE.md o AGENTS.md, según el agente.\n\nOjo, las reglas dicen que el RPC sale de .env.local. Para devnet alcanza con el público: https://api.devnet.solana.com.',
+    notas: 'Los agentes aprendieron Solana con código viejo y te proponen librerías de hace dos años. La skill ya está. Le sumo las reglas del stack de Superteam Argentina (superteam.ar/stack): un archivo que dice qué librerías usar y cuáles no.\n\n→ Y le pido que las sume a las instrucciones del repo: CLAUDE.md o AGENTS.md, según el agente.\n\nOjo, las reglas dicen que el RPC sale de .env.local. Para devnet alcanza con el público: https://api.devnet.solana.com.',
     contenido: () => (
       <div className="bv">
         <h1><WordsIn text="2 · Enseñarle Solana" /></h1>
         <div className="cd-pila">
           <div data-in>
-            <Term lineas={['npx skills add solana-foundation/solana-dev-skill', 'curl -o SOLANA-RULES.md "https://superteam.ar/stack/rules?lang=en"']} />
+            <Term lineas={['curl -o SOLANA-RULES.md "https://superteam.ar/stack/rules?lang=en"']} />
           </div>
           <Paso n={1}>
             <Prompt>Leé SOLANA-RULES.md y actualizá el <mark>CLAUDE.md o AGENTS.md</mark> del repo con esas reglas.</Prompt>
