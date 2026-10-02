@@ -1,0 +1,127 @@
+/* Identidad de las guías en PDF (guias/build.mjs): fondo casi negro con cuadrícula, amarillo para lo importante,
+   lavanda para etiquetas, JetBrains Mono en títulos y Geist en cuerpo. */
+:root {
+  color-scheme: dark;
+  --bg: #0a0b0f;
+  --ink: #efeee6;
+  --body: #cfd0d6;
+  --muted: #9a9eab;
+  --yellow: #f1c921;
+  --on-yellow: #16140a;
+  --peri: #8f99f0;
+  --grid: #ffffff0b;
+  --box: #12141b;
+  --box-line: #2a3350;
+  --rule: #5b8fd6aa;
+  --mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --sans: "Geist Variable", system-ui, sans-serif;
+  --ease-roll: cubic-bezier(0.165, 0.84, 0.44, 1); /* M-HOV-01, medido en offbrand */
+}
+* { box-sizing: border-box; margin: 0; }
+html, body, #root { min-height: 100%; }
+body {
+  background-color: var(--bg);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+  color: var(--body);
+  font: 400 16px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- piezas de @crisol/motion-kit (motion-kit.css) ---------- */
+/* M-HOV-01: roll por letra. El texto está duplicado; al pasar por encima cada letra sube una línea, con 20 ms de demora por letra. */
+.roll { display: inline-block; overflow: hidden; line-height: 1.25; vertical-align: top; white-space: nowrap; }
+.roll .ch { display: inline-block; position: relative; transition: transform 1.2s var(--ease-roll); transition-delay: calc(var(--i) * 20ms); }
+.roll .ch > span { display: block; }
+.roll .ch > span + span { position: absolute; top: 100%; left: 0; color: var(--yellow); }
+.item:hover .roll .ch, .item:focus-visible .roll .ch { transform: translateY(-100%); }
+/* M-REV-02: cada palabra en su máscara. El padding deja lugar a tildes y descendentes. */
+.words-clip { display: inline-block; overflow: clip; vertical-align: top; padding: 0.16em 0 0.145em; margin-top: -0.16em; }
+.words-clip .word { display: inline-block; will-change: transform; }
+
+/* ---------- menú ---------- */
+.menu { position: relative; min-height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; gap: clamp(12px, 3vh, 56px); padding: clamp(20px, 4vh, 56px) clamp(20px, 6vw, 112px); overflow: hidden; }
+.menu-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font: 700 clamp(0.7rem, 1vw, 0.9rem)/1.2 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--yellow); }
+.menu-top img { height: clamp(28px, 3.2vw, 44px); }
+.lista { list-style: none; padding: 0; align-self: center; position: relative; z-index: 1; }
+.lista li + li { border-top: 1.5px dashed var(--rule); }
+.item { display: grid; grid-template-columns: 3.4ch 1fr; column-gap: clamp(12px, 2vw, 32px); align-items: baseline; padding: clamp(10px, 2vh, 32px) 0; color: var(--ink); text-decoration: none; }
+.item-n { font: 700 clamp(0.8rem, 1.2vw, 1.1rem)/1 var(--mono); color: var(--peri); letter-spacing: 0.08em; }
+.item-titulo { display: block; overflow: clip; font: 800 clamp(1.25rem, 5vw, 6rem)/1 var(--mono); text-transform: uppercase; letter-spacing: -0.01em; }
+.item-meta { grid-column: 2; display: flex; align-items: baseline; gap: 8px clamp(20px, 3vw, 48px); flex-wrap: wrap; margin-top: clamp(4px, 1vh, 12px); }
+.item-bajada { font-size: clamp(1rem, 1.5vw, 1.375rem); color: var(--body); }
+.item-datos { font: 500 clamp(0.75rem, 1vw, 0.95rem)/1.2 var(--mono); color: var(--muted); white-space: nowrap; transition: color 0.3s ease-out; }
+.flecha { display: inline-block; margin-left: 0.6em; transition: transform 1.2s var(--ease-roll); } /* M-HOV-02 */
+.item:hover .item-datos, .item:focus-visible .item-datos { color: var(--yellow); }
+.item:hover .flecha, .item:focus-visible .flecha { transform: translateX(16px); }
+.menu-pie { display: flex; align-items: center; gap: 12px clamp(24px, 4vw, 64px); flex-wrap: wrap; color: var(--muted); font-size: 0.875rem; position: relative; z-index: 1; }
+.firma { display: flex; align-items: center; gap: 0.6em; }
+.firma img { height: 1.15em; }
+/* el carpincho ocupa la esquina que los títulos y sus datos dejan libre */
+.carpincho { position: absolute; right: clamp(8px, 3vw, 64px); bottom: clamp(16px, 4vh, 48px); width: clamp(140px, 17vw, 300px); pointer-events: none; }
+@media (max-width: 700px) {
+  .item { grid-template-columns: 1fr; row-gap: 6px; }
+  .item-meta { grid-column: 1; }
+  .carpincho { display: none; }
+}
+
+/* ---------- cortina entre el menú y una charla ---------- */
+.cortina { position: fixed; inset: 0; z-index: 50; background: var(--yellow); visibility: hidden; pointer-events: none; }
+
+/* ---------- deck: lienzo fijo de 1920×1080 escalado. Todo lo de adentro se mide en px del lienzo. ---------- */
+.deck { position: fixed; inset: 0; background: var(--bg); cursor: pointer; }
+.stage-box { position: absolute; inset: 0; overflow: hidden; }
+.stage {
+  position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: center; overflow: hidden;
+  background-color: var(--bg);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.slide { position: absolute; inset: 0; padding: 110px 120px 130px; }
+.hud { position: absolute; left: 120px; right: 120px; bottom: 50px; display: flex; justify-content: space-between; align-items: center; font: 500 24px/1 var(--mono); color: var(--muted); }
+.hud b { color: var(--ink); font-weight: 700; }
+.hud-menu { background: none; border: 0; padding: 14px 0; color: var(--muted); transition: color 0.3s ease-out; }
+.hud-menu:hover { color: var(--yellow); }
+.avance { position: absolute; left: 0; right: 0; bottom: 0; height: 8px; background: #ffffff12; }
+.avance i { display: block; height: 100%; background: var(--yellow); transform-origin: left; transition: transform 0.6s var(--ease-roll); }
+
+/* tipografía de slide, reutilizable por cualquier charla */
+.slide .kicker { font: 700 26px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--peri); }
+.slide h1 { font: 800 112px/1.02 var(--mono); text-transform: uppercase; letter-spacing: -0.01em; color: var(--ink); }
+.slide .cuerpo { font: 400 40px/1.3 var(--sans); color: var(--body); max-width: 1300px; }
+.slide code { font: 500 0.82em/1 var(--mono); color: var(--ink); background: var(--box); border: 1.5px solid var(--box-line); border-radius: 10px; padding: 0.12em 0.4em; }
+
+/* slide de relleno */
+.vacia .numero { font: 800 300px/0.9 var(--mono); color: var(--yellow); margin-top: 60px; letter-spacing: -0.03em; }
+.vacia h1 { margin-top: 36px; }
+.vacia .cuerpo { margin-top: 36px; }
+.pasos-demo { display: grid; gap: 14px; margin-top: 44px; }
+.pasos-demo .cuerpo { margin-top: 0; color: var(--ink); }
+
+/* ---------- modo presentador ---------- */
+.pres { display: grid; height: 100dvh; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.5fr); grid-template-rows: minmax(0, auto) minmax(0, 1fr); grid-template-areas: "actual actual notas" "sigue crono notas"; background: var(--bg); }
+.pres > section { padding: 20px 24px; min-width: 0; min-height: 0; }
+.pres h2, .pres-actual header { font: 700 0.75rem/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.pres-actual { grid-area: actual; border-bottom: 1px solid var(--box-line); }
+.pres-actual header { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.pres-actual header span:first-child { color: var(--yellow); }
+.pres-lienzo { position: relative; aspect-ratio: 16 / 9; border: 1px solid var(--box-line); }
+.pres-titulo { margin-top: 12px; color: var(--ink); font-weight: 500; }
+.pres-sigue { grid-area: sigue; border-right: 1px solid var(--box-line); display: flex; flex-direction: column; }
+/* la miniatura de lo que sigue usa el alto que quede: el lienzo se escala solo adentro */
+.pres-sigue .pres-lienzo { margin-top: 14px; flex: 1; min-height: 0; aspect-ratio: auto; }
+.pres-crono { grid-area: crono; display: flex; flex-direction: column; }
+.pres-reloj { font: 500 clamp(2rem, 4.4vw, 4rem)/1 var(--mono); color: var(--ink); font-variant-numeric: tabular-nums; margin: auto 0; }
+.pres-botones { display: flex; flex-wrap: wrap; gap: 8px; }
+.pres-botones button { min-height: 44px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--box-line); background: var(--box); font: 700 0.8rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; transition: border-color 0.2s ease-out; }
+.pres-botones button:hover { border-color: var(--yellow); }
+.pres-notas { grid-area: notas; border-left: 1px solid var(--box-line); overflow-y: auto; }
+.pres-notas p { margin-top: 18px; font-size: clamp(1.1rem, 1.7vw, 1.6rem); line-height: 1.5; color: var(--ink); white-space: pre-wrap; text-wrap: pretty; }
+.pres-vacio { display: grid; place-items: center; padding: 24px; text-align: center; font-size: 1.25rem; color: var(--body); }
+
+@media (prefers-reduced-motion: reduce) {
+  .roll .ch, .flecha, .avance i, .item-datos, .hud-menu { transition: none; }
+}
