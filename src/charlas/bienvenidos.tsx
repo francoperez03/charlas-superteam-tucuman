@@ -1,5 +1,6 @@
 import { WordsIn } from '../motion/motion'
-import { Paso, type Charla } from '../deck/slide'
+import { useContext } from 'react'
+import { Paso, SlideCtx, type Charla } from '../deck/slide'
 import { EQUIPO } from './equipo'
 
 // Fuente: README.md (premios, 4 pasos), agenda.md (jornada, "Qué juzga Colosseum").
@@ -23,6 +24,27 @@ const HOY = [
 // Del lun 28/9 al mar 13/10 son 15 días; el sábado 3/10 es el día 6.
 const DIA_HOY = 6
 const DIAS = 15
+
+// Foto y QR encimados en diagonal. Con → (paso 1) cambian de lugar: el QR pasa adelante para escanearlo.
+function Equipo() {
+  const { step } = useContext(SlideCtx)
+  return (
+    <div className="bv-equipo">
+      {EQUIPO.map((p) => (
+        <figure key={p.nombre} data-in>
+          <div className="bv-swap" data-qr={step >= 1 || undefined}>
+            <img className="bv-foto" src={p.foto} alt="" />
+            <img className="bv-qr" src={p.qr.img} alt={`QR al ${p.qr.red} de ${p.nombre}`} />
+          </div>
+          <figcaption>
+            <b>{p.nombre}</b>
+            {p.rol && <span>{p.rol}</span>}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  )
+}
 
 export const bienvenidos: Charla = {
   slug: 'bienvenidos',
@@ -50,24 +72,12 @@ export const bienvenidos: Charla = {
     },
     {
       titulo: 'Quiénes somos',
-      notas: 'Nos presentamos rápido. Cualquier duda del día, nos buscan a cualquiera de los tres.\n\nSi quieren seguirnos, escaneen el QR de cada uno.',
+      pasos: 1,
+      notas: 'Nos presentamos rápido. Cualquier duda del día, nos buscan a cualquiera de los tres.\n\n→ Pasan los QR adelante: si quieren seguirnos, escaneen el de cada uno.',
       contenido: () => (
         <div className="bv">
           <h1><WordsIn text="Quiénes somos" /></h1>
-          <div className="bv-equipo">
-            {EQUIPO.map((p) => (
-              <figure key={p.nombre} data-in>
-                <div className="bv-equipo-fila">
-                  <img src={p.foto} alt="" />
-                  <img className="bv-qr" src={p.qr.img} alt={`QR al ${p.qr.red} de ${p.nombre}`} />
-                </div>
-                <figcaption>
-                  <b>{p.nombre}</b>
-                  {p.rol && <span>{p.rol}</span>}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          <Equipo />
         </div>
       ),
     },
