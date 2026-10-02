@@ -161,15 +161,21 @@ const slides: Slide[] = [
   },
   {
     titulo: 'Qué habilita',
-    notas: 'Rápida y barata juntas cambian el producto: se pueden cobrar montos chicos y la app se siente como cualquier otra. Nadie espera ni paga más de comisión que el producto.',
+    notas: 'Qué cambia en un producto: como mover plata cuesta US$ 0,0006, se pueden cobrar montos chicos y casi todo llega a quien cobra.\n\nUn café de 2 dólares, una propina de 50 centavos, o un centavo por cada consulta a una API. En los tres casos la comisión es la misma: US$ 0,0006. Y llega en menos de medio segundo.',
     contenido: () => (
       <div className="bv">
-        <h1><WordsIn text="Cobrar de a centavos" /></h1>
         <div>
-          <div className="sl-tres">
-            {['Un café', 'Una propina', 'Pagar por uso'].map((t) => <p key={t} data-in>{t}</p>)}
-          </div>
-          <p className="bv-bajada sl-gap" data-in>Confirma al instante y casi no cuesta: la app se siente como cualquier otra.</p>
+          <h1><WordsIn text="Cobrar montos chicos" /></h1>
+          <p className="bv-bajada bv-gap-s" data-in>Mover plata cuesta tan poco que cualquier monto vale la pena.</p>
+        </div>
+        <div className="sl-tres">
+          {[['Un café', 'US$ 2'], ['Una propina', 'US$ 0,50'], ['Una consulta a una API', 'US$ 0,01']].map(([t, m]) => (
+            <div key={t} data-in>
+              <span className="bv-etq">{t}</span>
+              <b>{m}</b>
+              <span className="sl-comision">comisión: US$ 0,0006</span>
+            </div>
+          ))}
         </div>
       </div>
     ),

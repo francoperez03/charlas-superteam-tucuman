@@ -265,7 +265,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .sl-carrera[data-largo] .sl-carril-t { opacity: 1; transition-delay: 0.6s; }
 
 .sl-tres { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; }
-.sl-tres p { padding-top: 32px; border-top: 4px solid var(--yellow); white-space: nowrap; font: 800 60px/1.05 var(--mono); color: var(--ink); text-transform: uppercase; }
+.sl-tres > div { display: grid; gap: 18px; padding-top: 32px; border-top: 4px solid var(--yellow); }
+.sl-tres b { font: 800 92px/1 var(--mono); color: var(--yellow); white-space: nowrap; }
+.sl-comision { font: 500 36px/1.2 var(--sans); color: var(--body); }
 
 .sl-existe { display: grid; grid-template-columns: 1fr 1fr; gap: 0 120px; }
 .sl-existe > div > div { display: grid; gap: 14px; padding: 28px 0; border-top: 1.5px dashed var(--rule); }
