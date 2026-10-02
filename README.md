@@ -10,7 +10,7 @@ Un menú con tres charlas y un deck por charla, sobre un lienzo fijo de 1920×10
 
 - Bienvenidos
 - ¿Qué #$%& es Solana?
-- Mi primer producto con Solana
+- Hagamos una app
 
 ## Correrlo
 

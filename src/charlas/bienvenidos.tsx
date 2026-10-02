@@ -27,7 +27,7 @@ const PASOS_PARTICIPAR: [string, string, string, string?][] = [
 
 // Cronograma para el público: [inicio, fin, bloque]. Los nombres de las charlas son los del menú.
 const HOY: [string, string, string][] = [
-  ['11:00', '11:10', 'Bienvenida'], ['11:10', '11:40', '¿Qué #$%& es Solana?'], ['11:40', '12:20', 'Mi primer producto con Solana'],
+  ['11:00', '11:10', 'Bienvenida'], ['11:10', '11:40', '¿Qué #$%& es Solana?'], ['11:40', '12:20', 'Hagamos una app'],
   ['12:20', '13:00', 'Preparando el setup'], ['13:00', '13:30', 'Cómo comienzo mi investigación con IA'], ['13:30', '14:30', 'Almuerzo'],
   ['14:30', '17:00', '¡A buildear!'], ['17:00', '17:30', 'Show & tell'], ['17:30', '17:40', 'Cierre'],
 ]
