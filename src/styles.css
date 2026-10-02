@@ -134,6 +134,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .bv-x { font: 800 150px/1.02 var(--mono); color: var(--yellow); text-transform: uppercase; }
 .bv-logos { display: flex; align-items: center; gap: 64px; }
 .bv-logos img { height: 64px; }
+/* PCN: el wordmark en texto y el isotipo en alta, como en la placa oficial */
+.bv-pcn { display: flex; align-items: center; gap: 14px; font: 800 64px/1 var(--sans); color: #fff; letter-spacing: -0.02em; }
+.bv-pcn img { height: 52px; }
 .bv-cierre { justify-content: center; }
 .bv-cierre h1 { font-size: 180px; color: var(--yellow); }
 .bv-cierre .bv-carpincho { width: 400px; }

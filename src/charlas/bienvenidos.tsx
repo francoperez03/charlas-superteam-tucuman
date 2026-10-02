@@ -140,6 +140,7 @@ export const bienvenidos: Charla = {
           <div className="bv-logos" data-in>
             <img src="/logo-superteam-arg.png" alt="Superteam Argentina" />
             <img src="/logo-crisol-mono.svg" alt="Crisol" />
+            <span className="bv-pcn" role="img" aria-label="PCN"><span aria-hidden>PCN</span><img src="/logo-pcn-isotipo.png" alt="" /></span>
           </div>
           <img className="bv-carpincho" src="/mascota-carpincho.png" alt="" data-in />
         </div>
