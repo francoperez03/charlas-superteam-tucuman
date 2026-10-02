@@ -48,13 +48,16 @@ function Equipo() {
   )
 }
 
-// Slide final: los QR de los tres para seguirnos.
+// Slide final: los QR de los tres para seguirnos, cada uno con la foto asomando atrás en diagonal (quieta).
 function Qrs() {
   return (
     <div className="bv-qrs">
       {EQUIPO.map((p) => (
         <figure key={p.nombre} data-in>
-          <img src={p.qr.img} alt={`QR al ${p.qr.red} de ${p.nombre}`} />
+          <div className="bv-qr-par">
+            <img className="bv-qr-foto" src={p.foto} alt="" />
+            <img className="bv-qr-img" src={p.qr.img} alt={`QR al ${p.qr.red} de ${p.nombre}`} />
+          </div>
           <figcaption>{p.nombre}</figcaption>
         </figure>
       ))}
