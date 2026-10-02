@@ -137,16 +137,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .bv-carpincho { position: absolute; right: 120px; bottom: 130px; width: 520px; }
 
 .bv-equipo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; }
-/* dos cuadrados de 400 encimados con 120 de corrimiento; el de adelante es el de abajo a la derecha.
-   El z-index cambia a mitad del viaje para que el cruce se lea como un swap. */
-.bv-swap { --t: 400px; --d: 120px; position: relative; width: calc(var(--t) + var(--d)); height: calc(var(--t) + var(--d)); }
-.bv-swap img { position: absolute; left: 0; top: 0; width: var(--t); height: var(--t); border-radius: 16px; border: 3px solid var(--bg);
-  transition: transform 0.8s var(--ease-roll), filter 0.8s var(--ease-roll), z-index 0s 0.4s; }
-.bv-foto { object-fit: cover; transform: translate(var(--d), var(--d)); z-index: 2; }
-.bv-qr { image-rendering: pixelated; z-index: 1; filter: brightness(0.3); }
-.bv-swap[data-qr] .bv-foto { transform: none; z-index: 1; filter: brightness(0.45); }
-.bv-swap[data-qr] .bv-qr { transform: translate(var(--d), var(--d)); z-index: 2; filter: none; }
-@media (prefers-reduced-motion: reduce) { .bv-swap img { transition: none; } }
+/* foto y QR encimados; la posición, el tamaño, el brillo y quién tapa a quién los pone Equipo() en bienvenidos.tsx */
+.bv-swap { position: relative; }
+.bv-swap img { position: absolute; left: 0; top: 0; border-radius: 16px; border: 3px solid var(--bg); transform-origin: center; will-change: transform; }
+.bv-foto { object-fit: cover; }
+.bv-qr { image-rendering: pixelated; }
 .bv-equipo figcaption { display: grid; gap: 12px; margin-top: 32px; font: 500 30px/1.2 var(--sans); color: var(--body); }
 .bv-equipo b { font: 800 40px/1.1 var(--mono); color: var(--ink); text-transform: uppercase; }
 

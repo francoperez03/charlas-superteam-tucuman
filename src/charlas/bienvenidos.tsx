@@ -1,5 +1,5 @@
-import { WordsIn } from '../motion/motion'
-import { useContext } from 'react'
+import { gsap, reducedMotion, WordsIn } from '../motion/motion'
+import { useContext, useLayoutEffect, useRef } from 'react'
 import { Paso, SlideCtx, type Charla } from '../deck/slide'
 import { EQUIPO } from './equipo'
 
@@ -25,16 +25,59 @@ const HOY = [
 const DIA_HOY = 6
 const DIAS = 15
 
-// Foto y QR encimados en diagonal. Con → (paso 1) cambian de lugar: el QR pasa adelante para escanearlo.
+// Foto y QR encimados en diagonal. Con → (paso 1) giran como dos cartas sólidas alrededor de su centro común:
+// a mitad de vuelta se separan, la que va atrás se achica y la que viene adelante crece, y ahí se cruzan.
+const T = 400 // lado de cada carta, en px del lienzo
+const D = 120 // corrimiento diagonal entre las dos
+const R0 = D / Math.SQRT2 // radio de la órbita en reposo
+const ABRE = 50 // cuánto se separan a mitad de vuelta
+const OSCURA = { foto: 0.45, qr: 0.3 } // brillo de la carta de atrás
+
+// Pose de una carta: t va de 0 a 1 en la vuelta; `adelante` dice si termina adelante.
+function pose(desde: number, sentido: number, t: number, adelante: boolean, oscura: number) {
+  const m = Math.sin(Math.PI * t)
+  const a = desde + sentido * Math.PI * t
+  const r = R0 + ABRE * m
+  return {
+    x: D / 2 + r * Math.cos(a), y: D / 2 + r * Math.sin(a),
+    scale: adelante ? 1 + 0.05 * m : 1 - 0.12 * m,
+    zIndex: (adelante ? t >= 0.5 : t < 0.5) ? 2 : 1,
+    filter: `brightness(${adelante ? oscura + (1 - oscura) * t : 1 - (1 - oscura) * t})`,
+  }
+}
+const FRENTE = Math.PI / 4 // abajo a la derecha
+const FONDO = FRENTE + Math.PI // arriba a la izquierda
+
 function Equipo() {
-  const { step } = useContext(SlideCtx)
+  const { step, animar } = useContext(SlideCtx)
+  const caja = useRef<HTMLDivElement>(null)
+  const antes = useRef<boolean | null>(null)
+  useLayoutEffect(() => {
+    const qrAdelante = step >= 1
+    const fotos = caja.current!.querySelectorAll<HTMLElement>('.bv-foto')
+    const qrs = caja.current!.querySelectorAll<HTMLElement>('.bv-qr')
+    // la foto arranca donde está y gira media vuelta; el QR, igual desde el lado opuesto
+    const vuelta = (t: number, aQr: boolean) => {
+      const sentido = aQr ? 1 : -1
+      gsap.set(fotos, pose(aQr ? FRENTE : FONDO, sentido, t, !aQr, OSCURA.foto))
+      gsap.set(qrs, pose(aQr ? FONDO : FRENTE, sentido, t, aQr, OSCURA.qr))
+    }
+    if (antes.current === null || antes.current === qrAdelante || !animar || reducedMotion()) vuelta(1, qrAdelante)
+    else {
+      const p = { t: 0 }
+      const tw = gsap.to(p, { t: 1, duration: 1.1, ease: 'power2.inOut', onUpdate: () => vuelta(p.t, qrAdelante) })
+      antes.current = qrAdelante
+      return () => { tw.progress(1).kill() }
+    }
+    antes.current = qrAdelante
+  }, [step, animar])
   return (
-    <div className="bv-equipo">
+    <div className="bv-equipo" ref={caja}>
       {EQUIPO.map((p) => (
         <figure key={p.nombre} data-in>
-          <div className="bv-swap" data-qr={step >= 1 || undefined}>
-            <img className="bv-foto" src={p.foto} alt="" />
-            <img className="bv-qr" src={p.qr.img} alt={`QR al ${p.qr.red} de ${p.nombre}`} />
+          <div className="bv-swap" style={{ width: T + D, height: T + D }}>
+            <img className="bv-foto" src={p.foto} alt="" style={{ width: T, height: T }} />
+            <img className="bv-qr" src={p.qr.img} alt={`QR al ${p.qr.red} de ${p.nombre}`} style={{ width: T, height: T }} />
           </div>
           <figcaption>
             <b>{p.nombre}</b>
