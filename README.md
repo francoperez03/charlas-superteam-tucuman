@@ -2,7 +2,7 @@
 
 Sitio de las charlas de la jornada del sábado 3 de octubre de 2026 (track argentino de Superteam en el Crypto World's Fair de Colosseum y Solana).
 
-En vivo: https://charlas-superteam-tucuman.vercel.app
+En vivo: https://charlas-superteam-tucuman.vercel.app. Cada push a `main` se publica solo en Vercel.
 
 ## Qué es
 
@@ -10,7 +10,7 @@ Un menú con tres charlas y un deck por charla, sobre un lienzo fijo de 1920×10
 
 - Bienvenidos
 - ¿Qué #$%& es Solana?
-- Vamo a codeá
+- Mi primer producto con Solana
 
 ## Correrlo
 
