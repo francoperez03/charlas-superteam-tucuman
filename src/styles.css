@@ -244,9 +244,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* logos en blanco: monocromo sobre el fondo oscuro */
 .sl-empresas { display: grid; gap: 0; }
-.sl-empresa { display: grid; grid-template-columns: 360px 1fr; align-items: center; gap: 60px; padding: 30px 0; border-top: 1.5px dashed var(--rule); }
+.sl-empresa { display: grid; grid-template-columns: 360px 1fr; align-items: center; gap: 60px; padding: 24px 0; border-top: 1.5px dashed var(--rule); }
 .sl-empresa img { height: 72px; max-width: 300px; object-fit: contain; object-position: left; filter: brightness(0) invert(1); }
 .sl-empresa p { font: 500 48px/1.2 var(--sans); color: var(--ink); }
+.sl-fuente { display: inline-block; margin-top: 10px; font: 500 24px/1 var(--mono); color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--box-line); }
+.sl-fuente:hover { color: var(--yellow); border-color: var(--yellow); }
 .sl-remate { margin-top: 36px; font: 800 88px/1 var(--mono); color: var(--yellow); text-transform: uppercase; }
 
 .sl-carrera { display: grid; gap: 48px; }

@@ -8,10 +8,11 @@ const IMG = (f: string) => `/img/solana/${f}`
 
 const MEMES = [['bonk.png', 'BONK'], ['dogwifcoin.png', 'dogwifhat'], ['pump-fun.png', 'pump.fun']]
 
+// [logo, empresa, qué hace, link a la fuente, texto del link]. Verificado el 2026-10-02.
 const EMPRESAS = [
-  ['visa.svg', 'Visa', 'Liquida con bancos en USDC sobre Solana'],
-  ['paypal.svg', 'PayPal', 'Su dólar digital, PYUSD, corre en Solana'],
-  ['stripe.svg', 'Stripe', 'Cobra en USDC sobre Solana'],
+  ['visa.svg', 'Visa', 'Liquida con bancos de EE.UU. en USDC sobre Solana', 'https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.21951.html', 'visa.com · comunicado del 16/12/2025'],
+  ['paypal.svg', 'PayPal', 'Su dólar digital, PYUSD, corre en Solana', 'https://newsroom.paypal-corp.com/2024-05-29-PayPal-USD-Stablecoin-Now-Available-on-Solana-Blockchain,-Providing-Faster,-Cheaper-Transactions-for-Consumers', 'paypal-corp.com · comunicado del 29/05/2024'],
+  ['stripe.svg', 'Stripe', 'Acepta pagos en USDC sobre Solana', 'https://docs.stripe.com/payments/stablecoin-payments', 'docs.stripe.com · stablecoin payments'],
 ]
 
 const EXISTE = [
@@ -113,14 +114,14 @@ const slides: Slide[] = [
   {
     titulo: 'Mientras tanto',
     pasos: 4,
-    notas: 'Mientras tanto, por la misma red:\n\n→ Visa: desde diciembre de 2025 liquida con bancos de Estados Unidos (Cross River y Lead Bank) en USDC sobre Solana. Su programa de stablecoins ya mueve más de USD 3.500 M al año (comunicado de Visa, 16/12/2025).\n\n→ PayPal: su dólar digital, PYUSD, corre en Solana desde mayo de 2024 (comunicado de PayPal, 29/05/2024).\n\n→ Stripe: acepta USDC sobre Solana en su checkout (docs.stripe.com, leído el 2026-10-02).\n\n→ Somos más que eso.',
+    notas: 'Mientras tanto, por la misma red:\n\n→ Visa: desde diciembre de 2025 liquida con bancos de Estados Unidos (Cross River y Lead Bank) en USDC sobre Solana. Su programa de stablecoins ya mueve más de USD 3.500 M al año (comunicado de Visa, 16/12/2025).\n\n→ PayPal: su dólar digital, PYUSD, corre en Solana desde mayo de 2024 (comunicado de PayPal, 29/05/2024).\n\n→ Stripe: acepta pagos en USDC sobre Solana, entre otras redes (docs.stripe.com, leído el 2026-10-02).\n\n→ Somos más que eso.',
     contenido: () => (
       <div className="bv">
         <h1><WordsIn text="Mientras tanto, por la misma red" /></h1>
         <div className="sl-empresas">
-          {EMPRESAS.map(([f, n, d], i) => (
+          {EMPRESAS.map(([f, n, d, url, fuente], i) => (
             <Paso key={n} n={i + 1}>
-              <div className="sl-empresa"><img src={IMG(f)} alt={n} /><p>{d}</p></div>
+              <div className="sl-empresa"><img src={IMG(f)} alt={n} /><div><p>{d}</p><a className="sl-fuente" href={url} target="_blank" rel="noreferrer">{fuente} ↗</a></div></div>
             </Paso>
           ))}
           <Paso n={4}><p className="sl-remate">Somos más que eso.</p></Paso>
