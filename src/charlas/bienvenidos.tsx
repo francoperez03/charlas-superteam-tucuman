@@ -2,7 +2,7 @@ import { WordsIn } from '../motion/motion'
 import { useContext } from 'react'
 import { Paso, SlideCtx, type Charla } from '../deck/slide'
 import { EQUIPO } from './equipo'
-import { MUNDO } from './mundo'
+import { CHAPTERS, MUNDO } from './mundo'
 
 // Fuente: README.md (premios, 4 pasos), agenda.md (jornada, "Qué juzga Colosseum").
 // Cada slide es una columna del alto del lienzo (.bv): el título arriba y el contenido anclado abajo,
@@ -63,24 +63,52 @@ function Qrs() {
 }
 
 // Mapa del mundo: con → (paso 1) se apaga todo menos Argentina, que se marca con contorno y relleno.
+// Zoom sobre Argentina en el paso 1: el centro de su caja (366, 459) va al centro del mapa.
+const ZOOM = 4.4
+const zoomed = (x: number, y: number) => ({ x: MUNDO.ancho / 2 + (x - 366) * ZOOM, y: MUNDO.alto / 2 + (y - 459) * ZOOM })
+// Dónde va el nombre de cada chapter respecto de su punto. Chaco y Corrientes caen en el mismo lugar:
+// sus nombres se apilan a la derecha, con una línea hasta el punto.
+const ETIQUETA: Record<string, { dx: number; dy: number; fin?: boolean }> = {
+  Jujuy: { dx: -22, dy: 0, fin: true }, Tucumán: { dx: -22, dy: 6, fin: true }, Mendoza: { dx: -22, dy: 0, fin: true },
+  Formosa: { dx: 22, dy: -8 }, Chaco: { dx: 60, dy: 26 }, Corrientes: { dx: 60, dy: 60 }, 'Buenos Aires (MDQ)': { dx: 22, dy: 0 },
+}
+
 function Mundo() {
   const { step } = useContext(SlideCtx)
+  const arg = step >= 1
+  const t = { x: MUNDO.ancho / 2 - 366 * ZOOM, y: MUNDO.alto / 2 - 459 * ZOOM }
   return (
-    <div className="bv-mundo" data-arg={step >= 1 || undefined} data-in>
+    <div className="bv-mundo" data-arg={arg || undefined} data-in>
       <div className="bv-mundo-texto">
         <div className="bv-mundo-a">
           <span className="bv-etq">En el mundo</span>
           <p>Gente de todo el mundo construyendo sobre <b>Solana</b>.</p>
         </div>
         <div className="bv-mundo-b">
-          <span className="bv-etq">En Argentina</span>
+          <span className="bv-etq">En Argentina · {CHAPTERS.length} chapters</span>
           <p><b>Superteam Argentina</b> arma un track propio.</p>
           <p className="bv-mundo-premio">USD 10.000<span>solo para participantes de acá</span></p>
         </div>
       </div>
-      <svg viewBox={`0 0 ${MUNDO.ancho} ${MUNDO.alto}`} role="img" aria-label="Mapa del mundo con Argentina marcada">
-        <path className="bv-otros" d={MUNDO.otros} />
-        <path className="bv-arg" d={MUNDO.argentina} />
+      <svg viewBox={`0 0 ${MUNDO.ancho} ${MUNDO.alto}`} role="img" aria-label={`Mapa del mundo con Argentina y sus chapters: ${CHAPTERS.map((c) => c.nombre).join(', ')}`}>
+        <g className="bv-zoom" style={{ transform: arg ? `translate(${t.x}px, ${t.y}px) scale(${ZOOM})` : undefined }}>
+          <path className="bv-otros" d={MUNDO.otros} />
+          <path className="bv-arg" d={MUNDO.argentina} />
+        </g>
+        <g className="bv-chapters">
+          {CHAPTERS.map((c) => {
+            const p = zoomed(c.x, c.y)
+            const e = ETIQUETA[c.nombre]
+            const lx = p.x + e.dx, ly = p.y + e.dy
+            return (
+              <g key={c.nombre} className={c.nombre === 'Tucumán' ? 'bv-aca' : undefined}>
+                {Math.abs(e.dy) > 20 && <line x1={p.x} y1={p.y} x2={lx - 6} y2={ly - 8} />}
+                <circle cx={p.x} cy={p.y} r={c.nombre === "Tucumán" ? 13 : 7} />
+                <text x={lx} y={ly} textAnchor={e.fin ? 'end' : 'start'} dominantBaseline="middle">{c.nombre}</text>
+              </g>
+            )
+          })}
+        </g>
       </svg>
     </div>
   )
@@ -124,7 +152,7 @@ export const bienvenidos: Charla = {
     {
       titulo: 'Qué es Colosseum',
       pasos: 1,
-      notas: 'Colosseum organiza los hackathons globales de Solana. Este se llama Crypto World\'s Fair y participa gente de todo el mundo.\n\n→ Pero acá jugamos en Argentina: Superteam Argentina arma un track propio, con 10.000 dólares en premios solo para participantes de acá.',
+      notas: 'Colosseum organiza los hackathons globales de Solana. Este se llama Crypto World\'s Fair y participa gente de todo el mundo.\n\n→ Pero acá jugamos en Argentina: Superteam Argentina arma un track propio, con 10.000 dólares en premios solo para participantes de acá.\n\nHay chapters en Jujuy, Tucumán, Mendoza, Formosa, Chaco, Corrientes y Buenos Aires (Mar del Plata). Nosotros somos el de Tucumán.',
       contenido: () => (
         <div className="bv">
           <h1><WordsIn text="Hackathon de Colosseum" /></h1>
