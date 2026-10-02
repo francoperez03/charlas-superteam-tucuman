@@ -229,3 +229,72 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .bv-dia .bv-ahora .bv-dia-pista i { background: var(--yellow); }
 .bv-dia .bv-pausa .bv-dia-nombre { color: var(--muted); font-weight: 400; }
 .bv-dia .bv-pausa .bv-dia-pista i { background: transparent; border: 2px dashed var(--muted); }
+
+/* ---------- charla: ¿Qué #$%& es Solana? (usa las .bv-* de Bienvenidos) ---------- */
+.sl-gap { margin-top: 40px; }
+.sl-portada { justify-content: center; gap: 48px; }
+.sl-portada h1 { font-size: 150px; max-width: 1500px; text-wrap: balance; }
+.sl-logo { width: 140px; height: 140px; }
+.sl-frase { font: 600 76px/1.15 var(--sans); color: var(--ink); max-width: 1500px; text-wrap: balance; }
+.sl-frase em { font-style: normal; color: var(--yellow); }
+
+.sl-memes { display: flex; gap: 80px; }
+.sl-memes img { width: 300px; height: 300px; border-radius: 50%; object-fit: cover; display: block; }
+.sl-memes figcaption { margin-top: 24px; text-align: center; font: 800 40px/1 var(--mono); color: var(--ink); text-transform: uppercase; }
+
+/* logos en blanco: monocromo sobre el fondo oscuro */
+.sl-empresas { display: grid; gap: 0; }
+.sl-empresa { display: grid; grid-template-columns: 360px 1fr; align-items: center; gap: 60px; padding: 30px 0; border-top: 1.5px dashed var(--rule); }
+.sl-empresa img { height: 72px; max-width: 300px; object-fit: contain; object-position: left; filter: brightness(0) invert(1); }
+.sl-empresa p { font: 500 48px/1.2 var(--sans); color: var(--ink); }
+.sl-remate { margin-top: 36px; font: 800 88px/1 var(--mono); color: var(--yellow); text-transform: uppercase; }
+
+.sl-carrera { display: grid; gap: 48px; }
+.sl-carril { display: grid; grid-template-columns: 560px 1fr 220px; align-items: center; gap: 40px; }
+.sl-carril-n { font: 600 44px/1.2 var(--sans); color: var(--ink); white-space: nowrap; }
+.sl-carril-t { font: 800 52px/1 var(--mono); color: var(--muted); white-space: nowrap; }
+.sl-pista { height: 28px; border-radius: 14px; background: var(--box-line); overflow: hidden; }
+.sl-pista i { display: block; height: 100%; width: 0; border-radius: 14px; background: var(--peri); }
+.sl-sol .sl-pista i { background: var(--yellow); }
+.sl-sol .sl-carril-n, .sl-sol .sl-carril-t { color: var(--yellow); }
+.sl-carril-t { opacity: 0; transition: opacity 0.4s ease-out; }
+.sl-carrera[data-largo] .sl-pista i { width: 6%; transition: width 12s linear; }
+.sl-carrera[data-largo] .sl-sol .sl-pista i { width: 100%; transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.sl-carrera[data-largo] .sl-carril-t { opacity: 1; transition-delay: 0.6s; }
+
+.sl-tres { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; }
+.sl-tres p { padding-top: 32px; border-top: 4px solid var(--yellow); white-space: nowrap; font: 800 60px/1.05 var(--mono); color: var(--ink); text-transform: uppercase; }
+
+.sl-existe { display: grid; grid-template-columns: 1fr 1fr; gap: 0 120px; }
+.sl-existe > div > div { display: grid; gap: 14px; padding: 28px 0; border-top: 1.5px dashed var(--rule); }
+.sl-existe b { font: 800 64px/1 var(--mono); color: var(--yellow); }
+.sl-existe p { font: 400 36px/1.25 var(--sans); color: var(--body); }
+
+.sl-usdc { display: flex; align-items: center; gap: 48px; }
+.sl-usdc img { width: 200px; height: 200px; }
+.sl-usdc b { font: 800 130px/1 var(--mono); color: var(--ink); white-space: nowrap; }
+
+.sl-rubros { list-style: none; padding: 0; }
+.sl-rubros li { display: grid; grid-template-columns: 70px 760px 200px 1fr; align-items: center; gap: 32px; padding: 14px 0; border-bottom: 1.5px dashed var(--rule); }
+.sl-rubro-n { font: 800 44px/1 var(--mono); color: var(--peri); }
+.sl-rubro { font: 600 46px/1.15 var(--sans); color: var(--ink); }
+.sl-dif { display: flex; gap: 10px; }
+.sl-dif i { width: 52px; height: 20px; border-radius: 6px; background: var(--box-line); }
+.sl-dif[data-n="1"] i:nth-child(-n+1), .sl-dif[data-n="2"] i:nth-child(-n+2), .sl-dif[data-n="3"] i { background: var(--yellow); }
+.sl-dif-t { font: 500 32px/1 var(--mono); color: var(--muted); }
+
+.sl-barra { display: grid; grid-template-columns: 9fr 1fr; height: 300px; gap: 8px; }
+.sl-barra > div { display: grid; align-content: end; gap: 12px; padding: 32px; border-radius: 16px; }
+.sl-web { background: var(--box); border: 2px solid var(--box-line); }
+.sl-web b { font: 800 72px/1 var(--mono); color: var(--ink); text-transform: uppercase; }
+.sl-web span { font: 400 36px/1.2 var(--sans); color: var(--body); }
+.sl-valor { background: var(--yellow); position: relative; }
+.sl-valor b, .sl-valor span { position: absolute; right: 0; white-space: nowrap; color: var(--yellow); text-align: right; }
+.sl-valor b { bottom: calc(100% + 64px); font: 800 52px/1 var(--mono); text-transform: uppercase; }
+.sl-valor span { bottom: calc(100% + 18px); font: 400 34px/1 var(--sans); }
+
+.sl-respuestas { display: grid; gap: 16px; margin-top: 40px; }
+.sl-respuestas p { font: 400 48px/1.25 var(--sans); color: var(--body); }
+.sl-respuestas b { color: var(--yellow); font-weight: 700; }
+@media (prefers-reduced-motion: reduce) { .sl-carrera .sl-pista i, .sl-carril-t { transition: none !important; } }
+.bv-monto.sl-monto { font-size: 250px; }
