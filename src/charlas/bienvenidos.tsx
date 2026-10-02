@@ -162,14 +162,14 @@ export const bienvenidos: Charla = {
     },
     {
       titulo: 'Fechas clave',
-      notas: `Tres fechas y nada más.\n\nHoy, sábado: construimos y armamos equipos.\n\nMañana domingo a las ${PRESELECCION} cierra la preselección: ahí se decide qué proyectos presentan en el Demo Day, que arranca a las 19:30.\n\nY la entrega en Colosseum cierra el martes 13 a las 03:59 de acá.`,
+      notas: `Tres fechas y nada más.\n\nHoy, sábado: construimos y armamos equipos.\n\nMañana domingo a las ${PRESELECCION} cierra la preselección: ahí se decide qué proyectos presentan en el Demo Day, que arranca a las 19:30.\n\nY ojo con el cierre: el track argentino de Superteam cierra el lunes 12 a las 23:59. Colosseum cierra cuatro horas después, el martes 13 a las 03:59, pero si entregan tarde quedan afuera del track argentino. Entreguen antes del lunes a la noche.`,
       contenido: () => (
         <div className="bv">
           <h1><WordsIn text="Fechas clave" /></h1>
           <div className="bv-fechas">
             <div className="bv-fecha-hoy" data-in><span className="bv-etq">Hoy</span><b>sáb 3 oct</b><p>Construimos y armamos equipos</p></div>
             <div data-in><span className="bv-etq">Mañana · dom 4 oct</span><b>{PRESELECCION}</b><p>Cierra la preselección: se decide quién presenta en el Demo Day</p></div>
-            <div data-in><span className="bv-etq">Cierre · 03:59</span><b>mar 13 oct</b><p>Cierra la entrega en Colosseum</p></div>
+            <div data-in><span className="bv-etq">Cierre · 23:59</span><b>lun 12 oct</b><p>Cierra el track argentino. Entregá antes: Colosseum cierra después, el 13/10 a las 03:59</p></div>
           </div>
         </div>
       ),
