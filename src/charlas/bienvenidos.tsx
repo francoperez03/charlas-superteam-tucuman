@@ -9,6 +9,14 @@ import { CHAPTERS, MUNDO } from './mundo'
 // así ninguna deja medio lienzo vacío y todas comparten el mismo borde izquierdo.
 const PUESTOS = [['2.º', '2.000'], ['3.º', '1.500'], ['4.º', '1.000'], ['5.º', '500']]
 
+// Los cuatro criterios de Colosseum (agenda.md, "Qué juzga Colosseum"), dichos como la pregunta que se hace el jurado.
+const JURADO = [
+  ['Equipo', '¿Son las personas indicadas para resolver este problema?'],
+  ['Producto', '¿Funciona y se puede usar?'],
+  ['Mercado', '¿Cuánta gente lo necesita?'],
+  ['Negocio', '¿Cómo se sostiene y gana plata?'],
+]
+
 // El 4.º elemento marca las dos entregas del mismo proyecto (Colosseum y Earn).
 const PASOS_PARTICIPAR: [string, string, string, string?][] = [
   ['Hub en Luma', 'Agenda y novedades', 'luma.com/3qmbyb6h'],
@@ -204,17 +212,19 @@ export const bienvenidos: Charla = {
       ),
     },
     {
-      titulo: 'Qué juzgan',
-      notas: 'Lo más importante para hoy: Colosseum juzga negocio y ejecución antes que lo técnico.\n\nSe juzga solo lo que se construye durante la competencia. Si traen código de antes, se declara.',
+      titulo: 'Qué mira el jurado',
+      notas: 'Para qué les cuento esto: el jurado de Colosseum evalúa como un inversor. Premia un producto que la gente usaría, más que el código más complicado.\n\nSon cuatro preguntas. ¿Ustedes son los indicados para resolver este problema? ¿Funciona y se puede usar? ¿Cuánta gente lo necesita? ¿Cómo se sostiene?\n\nSolo cuenta lo que construyan durante la hackathon. Si traen código de antes, se declara.',
       contenido: () => (
         <div className="bv">
-          <h1><WordsIn text="Negocio antes que código" /></h1>
-          <ul className="bv-lista">
-            <li data-in>Encaje entre el equipo y el mercado</li>
-            <li data-in>Ejecución del producto</li>
-            <li data-in>Potencial de mercado</li>
-            <li data-in>Viabilidad del negocio</li>
-          </ul>
+          <div>
+            <h1><WordsIn text="Qué mira el jurado" /></h1>
+            <p className="bv-bajada bv-gap-s" data-in>Evalúa como un inversor: premia productos que la gente usaría.</p>
+          </div>
+          <div className="bv-jurado">
+            {JURADO.map(([etq, pregunta]) => (
+              <div key={etq} data-in><span className="bv-etq">{etq}</span><p>{pregunta}</p></div>
+            ))}
+          </div>
         </div>
       ),
     },

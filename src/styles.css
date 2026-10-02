@@ -195,9 +195,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .bv-premios li span { font: 700 40px/1 var(--mono); color: var(--peri); }
 .bv-premios li b { font: 800 64px/1 var(--mono); color: var(--ink); }
 
-.bv-lista { list-style: none; padding: 0; display: grid; gap: 0; }
-.bv-lista li { font: 500 60px/1.2 var(--sans); color: var(--ink); padding: 22px 0 22px 84px; position: relative; border-bottom: 1.5px dashed var(--rule); }
-.bv-lista li::before { content: '→'; position: absolute; left: 0; color: var(--yellow); font-family: var(--mono); }
+.bv-jurado { display: grid; grid-template-columns: 1fr 1fr; gap: 0 120px; }
+.bv-jurado > div { display: grid; align-content: start; gap: 14px; padding: 30px 0; border-top: 1.5px dashed var(--rule); }
+.bv-jurado p { font: 500 48px/1.2 var(--sans); color: var(--ink); text-wrap: balance; }
 
 .bv-pasos { display: grid; gap: 20px; }
 .bv-pasos .bv-bajada { margin-bottom: 12px; }
