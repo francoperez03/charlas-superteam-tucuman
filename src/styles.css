@@ -295,19 +295,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .sl-dif[data-n="1"] i:nth-child(-n+1), .sl-dif[data-n="2"] i:nth-child(-n+2), .sl-dif[data-n="3"] i { background: var(--yellow); }
 .sl-dif-t { font: 500 28px/1 var(--mono); color: var(--muted); white-space: nowrap; }
 
-.sl-capas { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-.sl-capas > div { padding: 40px 44px; border-radius: 16px; border: 2px solid var(--box-line); background: var(--box); }
-.sl-capas ul { list-style: none; padding: 0; margin-top: 24px; display: grid; gap: 14px; }
-.sl-capas li { font: 500 46px/1.2 var(--sans); color: var(--ink); }
-.sl-capas .sl-capa-sol { border-color: var(--yellow); background: #f1c92114; }
-.sl-capa-sol .bv-etq, .sl-capa-sol li { color: var(--yellow); }
-.sl-casos { display: grid; gap: 24px; }
-.sl-caso { display: grid; grid-template-columns: 560px 1fr auto; align-items: center; gap: 40px; padding: 30px 40px; border-radius: 16px; border: 2px solid var(--box-line); }
-.sl-caso b { font: 700 46px/1.15 var(--sans); color: var(--ink); }
-.sl-caso span { font: 400 36px/1.25 var(--sans); color: var(--body); }
-.sl-caso em { font: 800 32px/1 var(--mono); font-style: normal; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
-.sl-caso-si { border-color: var(--yellow); }
-.sl-caso-si em { color: var(--yellow); }
 @media (prefers-reduced-motion: reduce) { .sl-carrera .sl-pista i, .sl-carril-t, .sl-carta { transition: none !important; } }
 .bv-monto.sl-monto { font-size: 250px; }
 
@@ -349,3 +336,15 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .cd-url { font: 700 64px/1.2 var(--mono); color: var(--ink); white-space: nowrap; }
 .slide h1.cd-cierre { color: var(--yellow); font-size: 150px; }
 .cd-etq { margin-bottom: 18px; }
+
+/* el ecosistema en piezas */
+.sl-piezas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 60px; }
+.sl-piezas > div { display: grid; align-content: start; gap: 12px; padding: 26px 0; border-top: 1.5px dashed var(--rule); }
+.sl-piezas b { font: 700 44px/1.15 var(--sans); color: var(--ink); }
+.sl-piezas p { font: 400 32px/1.25 var(--sans); color: var(--body); }
+/* después del sábado: la cadena con 3 etapas y los ejemplos */
+.sl-camino { grid-template-columns: minmax(0, 1fr) repeat(2, var(--f) minmax(0, 1fr)); --f: 180px; }
+.sl-camino .sl-nodo { min-height: 190px; }
+.sl-camino .sl-nodo b { font-size: 48px; }
+.sl-salieron { display: flex; align-items: baseline; gap: 48px; margin-top: 36px; padding-bottom: 16px; }
+.sl-salieron b { font: 800 56px/1 var(--mono); color: var(--yellow); text-transform: uppercase; }

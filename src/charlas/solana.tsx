@@ -30,6 +30,23 @@ const PALABRAS = [
   ['Cuenta', 'donde vive la data: saldos, estado', 'escribe en'],
 ]
 
+// Piezas del ecosistema: [para qué, quiénes, qué resuelven].
+const PIEZAS = [
+  ['Wallet', 'Phantom · Solflare · Backpack', 'el usuario y su firma'],
+  ['Login sin wallet', 'Privy', 'entra con mail y la wallet se crea sola'],
+  ['Conexión a la red', 'Helius · QuickNode', 'tu app habla con Solana'],
+  ['Cobros', 'Solana Pay', 'un QR para cobrar en USDC'],
+  ['Tokens', 'Metaplex', 'crear tokens y coleccionables'],
+  ['Intercambios', 'Jupiter', 'cambiar un token por otro'],
+]
+
+// El camino después de una hackathon: [etapa, qué es, la flecha que llega desde la anterior].
+const CAMINO = [
+  ['Hackathon', '4 semanas, como esta', ''],
+  ['Aceleradora', '12 semanas · USD 250.000 por equipo', 'los mejores'],
+  ['Empresa', 'producto con usuarios', 'y de ahí'],
+]
+
 // Los seis rubros de la Guía 3 (guias/03-que-construir.md), en el mismo orden y con la misma dificultad.
 // Atrás de cada tarjeta, los dos ejemplos de la guía.
 const RUBROS: [string, string, number, string, string][] = [
@@ -248,41 +265,41 @@ const slides: Slide[] = [
     ),
   },
   {
-    titulo: 'Dónde entra Solana',
-    pasos: 1,
-    notas: 'Un ejemplo para que se vea dónde entra Solana: una app de entradas para un recital.\n\nCasi todo es una app web como cualquier otra: la página de venta, el login, los mails, el panel del organizador. Eso lo hacen como siempre.\n\n→ Solana entra en dos lugares: la entrada es un token que queda en tu wallet, y el cobro es en USDC. Nada más.',
+    titulo: 'El ecosistema',
+    notas: 'No hace falta construir todo. El ecosistema ya tiene las piezas, y tu app se arma juntándolas:\n\nWallets como Phantom, Solflare o Backpack. Si tu usuario no tiene wallet, Privy le crea una cuando entra con su mail o con Google. Para que tu app hable con la red, un proveedor como Helius o QuickNode. Para cobrar, Solana Pay, con un QR. Para crear tokens, Metaplex. Y si tu app necesita cambiar un token por otro, Jupiter.\n\nEn "Hagamos una app" vamos a usar varias de estas.',
     contenido: () => (
       <div className="bv">
         <div>
-          <h1><WordsIn text="Dónde entra Solana" /></h1>
-          <p className="bv-bajada bv-gap-s" data-in>Ejemplo: una app de entradas para un recital.</p>
+          <h1><WordsIn text="Las piezas ya existen" /></h1>
+          <p className="bv-bajada bv-gap-s" data-in>Tu app se arma juntándolas.</p>
         </div>
-        <div className="sl-capas">
-          <div data-in>
-            <span className="bv-etq">Lo hacés como siempre</span>
-            <ul><li>Página de venta</li><li>Login</li><li>Mails</li><li>Panel del organizador</li></ul>
-          </div>
-          <Paso n={1} className="sl-capa-sol">
-            <span className="bv-etq">Lo hace Solana</span>
-            <ul><li>La entrada: un token en tu wallet</li><li>El cobro: en USDC</li></ul>
-          </Paso>
+        <div className="sl-piezas">
+          {PIEZAS.map(([etq, nombres, para]) => (
+            <div key={etq} data-in><span className="bv-etq">{etq}</span><b>{nombres}</b><p>{para}</p></div>
+          ))}
         </div>
       </div>
     ),
   },
   {
-    titulo: 'La prueba de la planilla',
-    pasos: 2,
-    notas: 'La pregunta que vamos a repetir todo el día, la misma de la Guía 3: ¿tu producto andaría igual con una planilla compartida y una billetera virtual?\n\n→ Una lista de tareas del equipo: con una planilla anda perfecto. Todavía no necesita Solana.\n\n→ Plata que llega de afuera: la planilla anota, pero no mueve dólares. Ahí entra Solana, y ahí está la idea.\n\nY ahora, a construir: Hagamos una app.',
+    titulo: 'Después del sábado',
+    pasos: 1,
+    notas: 'Y esto no termina el sábado. Así es el camino:\n\nUna hackathon de cuatro semanas, como esta. Los mejores equipos entran a la aceleradora de Colosseum: doce semanas y USD 250.000 de inversión para cada equipo (colosseum.com/accelerator, 2026-10-02). De ahí salen empresas.\n\n→ Ejemplos: Ore ganó la Renaissance en mayo de 2024 y se llevó USD 50.000 (blog de Colosseum, 06/05/2024). CrowdBrain ganó la Frontier en junio de 2026, entre 2.857 proyectos (blog de Colosseum, 26/06/2026). Tensor, uno de los marketplaces más grandes de Solana, salió de hackathons de Solana (Matty Taylor, cofundador de Colosseum, en X).\n\nEl próximo puede salir de esta sala. Y ahora, a construir: Hagamos una app.',
     contenido: () => (
       <div className="bv">
+        <h1><WordsIn text="Después del sábado" /></h1>
         <div>
-          <h1><WordsIn text="La prueba de la planilla" /></h1>
-          <p className="bv-bajada bv-gap-s" data-in>¿Tu producto andaría igual con una planilla compartida y una billetera virtual?</p>
-        </div>
-        <div className="sl-casos">
-          <Paso n={1}><div className="sl-caso"><b>Lista de tareas del equipo</b><span>Anda igual con una planilla</span><em>Todavía no necesita Solana</em></div></Paso>
-          <Paso n={2}><div className="sl-caso sl-caso-si"><b>Plata que llega de afuera</b><span>La planilla anota, pero no mueve dólares</span><em>Ahí está tu idea</em></div></Paso>
+          <div className="sl-cadena sl-camino">
+            {CAMINO.map(([w, d, flecha]) => (
+              <div key={w} className="sl-eslabon" data-in>
+                {flecha && <div className="sl-flecha"><span>{flecha}</span></div>}
+                <div className="sl-nodo"><b>{w}</b><span>{d}</span></div>
+              </div>
+            ))}
+          </div>
+          <Paso n={1}>
+            <p className="sl-salieron"><span className="bv-etq">Salieron de una hackathon</span><b>Ore</b><b>CrowdBrain</b><b>Tensor</b></p>
+          </Paso>
         </div>
       </div>
     ),
