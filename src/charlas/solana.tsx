@@ -1,10 +1,11 @@
+import { pub } from '../pub'
 import { useContext } from 'react'
 import { WordsIn } from '../motion/motion'
 import { Paso, SlideCtx, type Charla, type Slide } from '../deck/slide'
 
 // Guion: de los memes a lo que se construye hoy. Cifras verificadas el 2026-10-02, fuente en las notas de cada slide.
 // Imágenes en public/img/solana/ (origen en FUENTES.md). Reusa las clases .bv-* de Bienvenidos y suma .sl-*.
-const IMG = (f: string) => `/img/solana/${f}`
+const IMG = (f: string) => pub(`/img/solana/${f}`)
 
 const MEMES = [['bonk.png', 'BONK'], ['dogwifcoin.png', 'dogwifhat'], ['pump-fun.png', 'pump.fun']]
 

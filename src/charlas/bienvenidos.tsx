@@ -1,3 +1,4 @@
+import { pub } from '../pub'
 import { WordsIn } from '../motion/motion'
 import { useContext } from 'react'
 import { Paso, SlideCtx, type Charla } from '../deck/slide'
@@ -142,11 +143,11 @@ export const bienvenidos: Charla = {
             <p className="bv-x" data-in>× Tucumán</p>
           </div>
           <div className="bv-logos" data-in>
-            <img src="/logo-superteam-arg.png" alt="Superteam Argentina" />
-            <img src="/logo-crisol-mono.svg" alt="Crisol" />
-            <span className="bv-pcn" role="img" aria-label="PCN"><span aria-hidden>PCN</span><img src="/logo-pcn-isotipo.png" alt="" /></span>
+            <img src={pub("/logo-superteam-arg.png")} alt="Superteam Argentina" />
+            <img src={pub("/logo-crisol-mono.svg")} alt="Crisol" />
+            <span className="bv-pcn" role="img" aria-label="PCN"><span aria-hidden>PCN</span><img src={pub("/logo-pcn-isotipo.png")} alt="" /></span>
           </div>
-          <img className="bv-carpincho" src="/mascota-carpincho.png" alt="" data-in />
+          <img className="bv-carpincho" src={pub("/mascota-carpincho.png")} alt="" data-in />
         </div>
       ),
     },

@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pages": "sh scripts/pages.sh"
   },
   "dependencies": {
     "@fontsource-variable/geist": "^5.2.5",

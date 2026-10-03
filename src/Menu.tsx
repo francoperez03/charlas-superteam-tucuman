@@ -1,3 +1,4 @@
+import { pub } from './pub'
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import { gsap, REVEAL, reducedMotion } from './motion/motion'
 import { CHARLAS } from './charlas'
@@ -27,7 +28,7 @@ export function Menu({ onElegir }: { onElegir: (slug: string) => void }) {
     <main ref={scope} className="menu">
       <canvas ref={fondo} className="fondo" aria-hidden />
       <header className="menu-top" data-in>
-        <img src="/logo-superteam-arg.png" alt="Superteam Argentina" />
+        <img src={pub("/logo-superteam-arg.png")} alt="Superteam Argentina" />
         <p>Road to Colosseum X Tucumán · sáb 3 oct</p>
       </header>
       <nav aria-label="Charlas">
@@ -48,9 +49,9 @@ export function Menu({ onElegir }: { onElegir: (slug: string) => void }) {
         </ol>
       </nav>
       <footer className="menu-pie" data-in>
-        <p className="firma">Con 💜 por <img src="/logo-crisol-mono.svg" alt="Crisol" /></p>
+        <p className="firma">Con 💜 por <img src={pub("/logo-crisol-mono.svg")} alt="Crisol" /></p>
       </footer>
-      <img className="carpincho" src="/mascota-carpincho.png" alt="" data-in />
+      <img className="carpincho" src={pub("/mascota-carpincho.png")} alt="" data-in />
     </main>
   )
 }
