@@ -2,7 +2,9 @@
 
 Sitio de las charlas de la jornada del sábado 3 de octubre de 2026 (track argentino de Superteam en el Crypto World's Fair de Colosseum y Solana).
 
-En vivo: https://charlas-superteam-tucuman.vercel.app. Cada push a `main` se publica solo en Vercel.
+En vivo: https://charlas-superteam-tucuman.vercel.app (Vercel, cada push a `main` se publica solo) y, como respaldo, https://francoperez03.github.io/charlas-superteam-tucuman/ (GitHub Pages, se publica con `npm run pages`).
+
+El 2026-10-03 la cuenta de Vercel quedó pausada (`DEPLOYMENT_DISABLED`, HTTP 402 en todos los proyectos): hasta que se reactive desde el panel de Vercel, el sitio que anda es el de GitHub Pages.
 
 ## Qué es
 
