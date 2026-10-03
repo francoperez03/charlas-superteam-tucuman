@@ -23,10 +23,22 @@ const REGLAS = [
   'Nada de Solana que no puedas explicar',
 ]
 
+// El kit propio (rama skills-autocontenidas de alejandrocol-dev/workspace-colosseum): [comando, para qué, cuánto, qué deja].
+// Copiado de solana-tuc-empezar/SKILL.md el 2026-10-03. Sin comando = paso sin skill.
+const KIT: [string, string, string, string][] = [
+  ['empezar', 'Explica el kit e instala las otras dos', '', ''],
+  ['idea', 'Qué construir: problema, usuario, idea', '20-30 min', '01-idea.md'],
+  ['validar', '¿Ya existe? ¿Vale la pena?', '15-30 min', '02-validacion.md'],
+  ['mvp', 'Lo mínimo que se muestra en 3 minutos', '20 min', '03-mvp.md'],
+  ['planificar', 'Tareas chicas para pedirle al agente', '20 min', '04-plan.md · AGENTS.md'],
+  ['', 'Construir', '', ''],
+  ['pitch', 'Deck, video demo y checklist de entrega', '30 min', '05-pitch.md'],
+]
+
 // Caja de terminal: cada línea es un comando. `$` y el texto entre <> en otro color.
-function Term({ lineas }: { lineas: string[] }) {
+function Term({ lineas, chica }: { lineas: string[]; chica?: boolean }) {
   return (
-    <div className="cd-term">
+    <div className={chica ? 'cd-term cd-term-chica' : 'cd-term'}>
       {lineas.map((l) => <code key={l}><i>$</i> {l}</code>)}
     </div>
   )
@@ -97,6 +109,41 @@ const slides: Slide[] = [
             <span className="bv-etq cd-etq">Solana dev skill · código de Solana de hoy</span>
             <Term lineas={['npx skills add solana-foundation/solana-dev-skill']} />
           </Paso>
+        </div>
+      </div>
+    ),
+  },
+  {
+    titulo: 'El kit de Tucumán',
+    notas: 'Y además armamos uno para ustedes: siete skills que llevan al equipo de la idea a la entrega. Se instala con un comando.\n\nUsa las dos de recién: validar busca en Copilot proyectos parecidos, y solana-dev se activa cuando escriben código. Si les falta alguna, /solana-tuc-empezar se las instala.\n\nTodo lo que deciden queda escrito en la carpeta proyecto/. Es la memoria del equipo: cada sesión nueva del agente arranca sin recordar nada.',
+    contenido: () => (
+      <div className="bv">
+        <div>
+          <h1><WordsIn text="Y uno hecho para hoy" /></h1>
+          <p className="bv-bajada bv-gap-s" data-in>Siete skills que llevan al equipo de la idea a la entrega.</p>
+        </div>
+        <div data-in>
+          <span className="bv-etq cd-etq">Kit Solana Tucumán</span>
+          <Term chica lineas={['npx skills add "alejandrocol-dev/workspace-colosseum#skills-autocontenidas" -g']} />
+        </div>
+      </div>
+    ),
+  },
+  {
+    titulo: 'El kit, paso a paso',
+    notas: 'El recorrido, en orden (solana-tuc-empezar/SKILL.md, 2026-10-03):\n\nempezar: explica el kit y deja instaladas Copilot y solana-dev.\nidea: 20 a 30 minutos para decidir qué construir.\nvalidar: qué ya existe y si vale la pena; da un veredicto. Si ya tienen idea, arranquen acá.\nmvp: recortar a lo que entra en las horas y se muestra en un video de 3 minutos.\nplanificar: tareas chicas para el agente, y deja el AGENTS.md armado.\nDespués construyen.\npitch: deck, guion del video demo en inglés y checklist de entrega.\n\nY /solana-tuc-status en cualquier momento: les dice en qué etapa están y qué sigue.',
+    contenido: () => (
+      <div className="bv">
+        <h1><WordsIn text="Paso a paso" /></h1>
+        <div>
+          <ol className="cd-kit">
+            {KIT.map(([c, para, min, deja]) => (
+              <li key={para} data-in className={c ? undefined : 'cd-kit-build'}>
+                <code>{c && `/solana-tuc-${c}`}</code><span>{para}</span><em>{min}</em><i>{deja}</i>
+              </li>
+            ))}
+          </ol>
+          <p className="cd-nota" data-in><b>/solana-tuc-status</b> en cualquier momento: en qué etapa están y qué sigue.</p>
         </div>
       </div>
     ),
