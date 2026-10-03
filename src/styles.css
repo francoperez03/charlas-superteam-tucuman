@@ -274,9 +274,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .sl-existe b { font: 800 64px/1 var(--mono); color: var(--yellow); }
 .sl-existe p { font: 400 36px/1.25 var(--sans); color: var(--body); }
 
-.sl-usdc { display: flex; align-items: center; gap: 48px; }
-.sl-usdc img { width: 200px; height: 200px; }
-.sl-usdc b { font: 800 130px/1 var(--mono); color: var(--ink); white-space: nowrap; }
 
 /* tarjetas de rubros: giran en Y, frente con el rubro y dorso con los dos ejemplos */
 .sl-cartas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; perspective: 2400px; }
@@ -337,14 +334,18 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .slide h1.cd-cierre { color: var(--yellow); font-size: 150px; }
 .cd-etq { margin-bottom: 18px; }
 
-/* el ecosistema en piezas */
-.sl-piezas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 60px; }
-.sl-piezas > div { display: grid; align-content: start; gap: 12px; padding: 26px 0; border-top: 1.5px dashed var(--rule); }
-.sl-piezas b { font: 700 44px/1.15 var(--sans); color: var(--ink); }
-.sl-piezas p { font: 400 32px/1.25 var(--sans); color: var(--body); }
-/* después del sábado: la cadena con 3 etapas y los ejemplos */
-.sl-camino { grid-template-columns: minmax(0, 1fr) repeat(2, var(--f) minmax(0, 1fr)); --f: 180px; }
-.sl-camino .sl-nodo { min-height: 190px; }
-.sl-camino .sl-nodo b { font-size: 48px; }
-.sl-salieron { display: flex; align-items: baseline; gap: 48px; margin-top: 36px; padding-bottom: 16px; }
-.sl-salieron b { font: 800 56px/1 var(--mono); color: var(--yellow); text-transform: uppercase; }
+
+/* cobrar US$ 2: tarjeta vs Solana */
+.sl-vs { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+.sl-vs > div { display: grid; gap: 16px; padding-top: 32px; border-top: 4px solid var(--box-line); }
+.sl-vs b { font: 800 150px/1 var(--mono); color: var(--ink); white-space: nowrap; letter-spacing: -0.02em; }
+.sl-vs p { font: 400 36px/1.25 var(--sans); color: var(--body); }
+.sl-vs .sl-vs-sol { border-top-color: var(--yellow); }
+.sl-vs .sl-vs-sol b { color: var(--yellow); }
+/* el dólar digital: tres usos */
+.sl-usos b { font: 800 60px/1.05 var(--mono); color: var(--ink); text-transform: uppercase; white-space: normal; }
+/* la demo en tres pasos */
+.sl-demo-paso { grid-template-columns: 70px 1fr auto; }
+.sl-demo-paso > span:last-child { color: var(--muted); }
+.bv-pasos .sl-remate { margin-top: 20px; padding-bottom: 20px; }
+.sl-cierre { font-size: 88px; max-width: 1600px; }

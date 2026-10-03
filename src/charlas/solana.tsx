@@ -30,21 +30,11 @@ const PALABRAS = [
   ['Cuenta', 'donde vive la data: saldos, estado', 'escribe en'],
 ]
 
-// Piezas del ecosistema: [para qué, quiénes, qué resuelven].
-const PIEZAS = [
-  ['Wallet', 'Phantom · Solflare · Backpack', 'el usuario y su firma'],
-  ['Login sin wallet', 'Privy', 'entra con mail y la wallet se crea sola'],
-  ['Conexión a la red', 'Helius · QuickNode', 'tu app habla con Solana'],
-  ['Cobros', 'Solana Pay', 'un QR para cobrar en USDC'],
-  ['Tokens', 'Metaplex', 'crear tokens y coleccionables'],
-  ['Intercambios', 'Jupiter', 'cambiar un token por otro'],
-]
-
-// El camino después de una hackathon: [etapa, qué es, la flecha que llega desde la anterior].
-const CAMINO = [
-  ['Hackathon', '4 semanas, como esta', ''],
-  ['Aceleradora', '12 semanas · USD 250.000 por equipo', 'los mejores'],
-  ['Empresa', 'producto con usuarios', 'y de ahí'],
+// Los tres pasos de la demo de "Hagamos una app" (agenda.md, ## Demo · cómo construir algo).
+const DEMO = [
+  ['Una app web con un botón', 'la escribe el agente'],
+  ['Tu wallet firma', 'Phantom, en devnet'],
+  ['La transacción aparece en el explorer', 'y el repo en GitHub'],
 ]
 
 // Los seis rubros de la Guía 3 (guias/03-que-construir.md), en el mismo orden y con la misma dificultad.
@@ -178,22 +168,17 @@ const slides: Slide[] = [
     ),
   },
   {
-    titulo: 'Qué habilita',
-    notas: 'Qué cambia en un producto: como mover plata cuesta US$ 0,0006, se pueden cobrar montos chicos y casi todo llega a quien cobra.\n\nUn café de 2 dólares, una propina de 50 centavos, o un centavo por cada consulta a una API. En los tres casos la comisión es la misma: US$ 0,0006. Y llega en menos de medio segundo.',
+    titulo: 'Cobrar US$ 2',
+    notas: 'Qué cambia en un producto. Cobrar un café de 2 dólares con tarjeta, con la tarifa estándar de Stripe (2,9 % más 30 centavos, stripe.com/pricing, leído el 2026-10-02), cuesta 36 centavos: el 18 % del cobro. Por Solana cuesta US$ 0,0006.\n\nPor eso se pueden cobrar montos chicos: un café, una propina, un centavo por consulta a una API. Dato extra: el propio Stripe cobra 1,5 % cuando el pago entra en stablecoins.',
     contenido: () => (
       <div className="bv">
         <div>
-          <h1><WordsIn text="Cobrar montos chicos" /></h1>
-          <p className="bv-bajada bv-gap-s" data-in>Mover plata cuesta tan poco que cualquier monto vale la pena.</p>
+          <h1><WordsIn text="Cobrar US$ 2" /></h1>
+          <p className="bv-bajada bv-gap-s" data-in>Lo que se lleva la comisión.</p>
         </div>
-        <div className="sl-tres">
-          {[['Un café', 'US$ 2'], ['Una propina', 'US$ 0,50'], ['Una consulta a una API', 'US$ 0,01']].map(([t, m]) => (
-            <div key={t} data-in>
-              <span className="bv-etq">{t}</span>
-              <b>{m}</b>
-              <span className="sl-comision">comisión: US$ 0,0006</span>
-            </div>
-          ))}
+        <div className="sl-vs">
+          <div data-in><span className="bv-etq">Con tarjeta</span><b>US$ 0,36</b><p>2,9 % + 30 centavos: el 18 % del cobro</p></div>
+          <div className="sl-vs-sol" data-in><span className="bv-etq">Por Solana</span><b>US$ 0,0006</b><p>por eso se pueden cobrar montos chicos</p></div>
         </div>
       </div>
     ),
@@ -216,12 +201,19 @@ const slides: Slide[] = [
     ),
   },
   {
-    titulo: 'Un dólar',
-    notas: 'Para acá esto pega directo. USDC vale un dólar y vive en tu wallet. Mandarlo es una transacción: cobrar del exterior, ahorrar en dólares, pagarle a alguien en otro país.',
+    titulo: 'El dólar digital, acá',
+    notas: 'Y para acá esto pega directo. Según Chainalysis, entre julio de 2024 y junio de 2025 más de la mitad de lo que se compró con pesos en los exchanges fueron stablecoins: dólares digitales (informe LATAM 2025, chainalysis.com, 02/10/2025). Argentina es el segundo país de la región en volumen, con USD 93.900 M entre 2022 y 2025.\n\nEl mercado ya existe y es este: ahorrar en dólares, cobrar del exterior sin banco en el medio, pagar a otro país. Un USDC vale un dólar, vive en tu wallet, y mandarlo es una transacción.',
     contenido: () => (
-      <div className="bv bv-centro">
-        <div className="sl-usdc" data-in><img src={IMG('usdc.svg')} alt="USDC" /><b>1 USDC = 1 dólar</b></div>
-        <p className="bv-bajada" data-in>Mandarlo es una transacción. Cobrar del exterior, ahorrar, pagar a otro país.</p>
+      <div className="bv">
+        <div>
+          <h1><WordsIn text="El dólar digital, acá" /></h1>
+          <p className="bv-bajada bv-gap-s" data-in>De lo que se compra con pesos en los exchanges, <b className="bv-ojo">más de la mitad</b> son dólares digitales.</p>
+        </div>
+        <div className="sl-tres sl-usos">
+          {[['Ahorrar', 'en dólares, en tu wallet'], ['Cobrar del exterior', 'sin banco en el medio'], ['Pagar a otro país', 'en segundos']].map(([t, d]) => (
+            <div key={t} data-in><b>{t}</b><span className="sl-comision">{d}</span></div>
+          ))}
+        </div>
       </div>
     ),
   },
@@ -244,19 +236,9 @@ const slides: Slide[] = [
     ),
   },
   {
-    titulo: 'Devnet',
-    notas: 'Todo lo de hoy pasa en devnet: la red de prueba. La plata es de mentira y se pide gratis en un faucet. Las transacciones son de verdad.',
-    contenido: () => (
-      <div className="bv">
-        <h1><WordsIn text="Devnet" /></h1>
-        <p className="sl-frase" data-in>La red de prueba. Plata de mentira, <em>transacciones de verdad</em>. Todo lo de hoy pasa acá.</p>
-      </div>
-    ),
-  },
-  {
     titulo: 'Qué construir',
     pasos: 6,
-    notas: 'Qué se puede construir hoy, de lo más simple a lo más desafiante. Es la Guía 3. Con cada → se da vuelta una tarjeta y aparecen dos ideas de ese rubro, pensadas para problemas de acá.\n\nLos tres primeros se hacen con programas que ya existen.\n\nEl último es entre amigos, de persona a persona: la vaquita del asado, donde la plata queda guardada y nadie cobra hasta que pagaron todos, o la apuesta del clásico, que se libera cuando termina el partido. Es lo más difícil porque la custodia necesita un programa propio. Para el sábado, arranquen con pago directo y sumen la custodia después.',
+    notas: 'Qué se puede construir hoy, de lo más simple a lo más desafiante. Es la Guía 3. Con cada → se da vuelta una tarjeta y aparecen dos ideas de ese rubro, pensadas para problemas de acá.\n\nLos tres primeros se hacen con programas que ya existen.\n\nEl último es entre amigos, de persona a persona: la vaquita del asado, donde la plata queda guardada y nadie cobra hasta que pagaron todos, o la apuesta del clásico, que se libera cuando termina el partido. Es lo más difícil porque la custodia necesita un programa propio. Para el sábado, arranquen con pago directo y sumen la custodia después.\n\nY todo lo de hoy pasa en devnet, la red de prueba: plata de mentira, transacciones de verdad.',
     contenido: () => (
       <div className="bv">
         <h1><WordsIn text="Qué construir hoy" /></h1>
@@ -265,42 +247,30 @@ const slides: Slide[] = [
     ),
   },
   {
-    titulo: 'El ecosistema',
-    notas: 'No hace falta construir todo. El ecosistema ya tiene las piezas, y tu app se arma juntándolas:\n\nWallets como Phantom, Solflare o Backpack. Si tu usuario no tiene wallet, Privy le crea una cuando entra con su mail o con Google. Para que tu app hable con la red, un proveedor como Helius o QuickNode. Para cobrar, Solana Pay, con un QR. Para crear tokens, Metaplex. Y si tu app necesita cambiar un token por otro, Jupiter.\n\nEn "Hagamos una app" vamos a usar varias de estas.',
+    titulo: 'Lo que vas a hacer',
+    pasos: 4,
+    notas: 'Y esto es lo que van a hacer en un rato, en "Hagamos una app":\n\n→ Una app web con un botón. La escribe el agente que preparamos después de esta charla.\n\n→ Tu wallet la firma. Phantom, en devnet.\n\n→ La transacción aparece en el explorer, y el repo en GitHub.\n\n→ Sin escribir un programa: para transferir ya hay uno hecho. Hoy no hace falta aprender Rust.',
     contenido: () => (
       <div className="bv">
-        <div>
-          <h1><WordsIn text="Las piezas ya existen" /></h1>
-          <p className="bv-bajada bv-gap-s" data-in>Tu app se arma juntándolas.</p>
-        </div>
-        <div className="sl-piezas">
-          {PIEZAS.map(([etq, nombres, para]) => (
-            <div key={etq} data-in><span className="bv-etq">{etq}</span><b>{nombres}</b><p>{para}</p></div>
+        <h1><WordsIn text="Lo que vas a hacer en un rato" /></h1>
+        <div className="bv-pasos">
+          {DEMO.map(([t, d], i) => (
+            <Paso key={t} n={i + 1}>
+              <div className="bv-paso sl-demo-paso"><span className="bv-n">{i + 1}</span><b>{t}</b><span>{d}</span></div>
+            </Paso>
           ))}
+          <Paso n={4}><p className="sl-remate">Sin escribir un programa.</p></Paso>
         </div>
       </div>
     ),
   },
   {
-    titulo: 'Después del sábado',
-    pasos: 1,
-    notas: 'Y esto no termina el sábado. Así es el camino:\n\nUna hackathon de cuatro semanas, como esta. Los mejores equipos entran a la aceleradora de Colosseum: doce semanas y USD 250.000 de inversión para cada equipo (colosseum.com/accelerator, 2026-10-02). De ahí salen empresas.\n\n→ Ejemplos: Ore ganó la Renaissance en mayo de 2024 y se llevó USD 50.000 (blog de Colosseum, 06/05/2024). CrowdBrain ganó la Frontier en junio de 2026, entre 2.857 proyectos (blog de Colosseum, 26/06/2026). Tensor, uno de los marketplaces más grandes de Solana, salió de hackathons de Solana (Matty Taylor, cofundador de Colosseum, en X).\n\nEl próximo puede salir de esta sala. Y ahora, a construir: Hagamos una app.',
+    titulo: 'Cierre',
+    notas: 'Entonces, ¿qué #$%& es Solana? Una red para mover plata, rápida y barata. Lo que escuchaste era una parte.\n\nAhora, a preparar el agente y a construir.',
     contenido: () => (
-      <div className="bv">
-        <h1><WordsIn text="Después del sábado" /></h1>
-        <div>
-          <div className="sl-cadena sl-camino">
-            {CAMINO.map(([w, d, flecha]) => (
-              <div key={w} className="sl-eslabon" data-in>
-                {flecha && <div className="sl-flecha"><span>{flecha}</span></div>}
-                <div className="sl-nodo"><b>{w}</b><span>{d}</span></div>
-              </div>
-            ))}
-          </div>
-          <Paso n={1}>
-            <p className="sl-salieron"><span className="bv-etq">Salieron de una hackathon</span><b>Ore</b><b>CrowdBrain</b><b>Tensor</b></p>
-          </Paso>
-        </div>
+      <div className="bv bv-centro">
+        <span className="bv-etq" data-in>¿Qué #$%& es Solana?</span>
+        <p className="sl-frase sl-cierre" data-in>Una red para mover plata, <em>rápida y barata</em>. Lo que escuchaste era una parte.</p>
       </div>
     ),
   },
